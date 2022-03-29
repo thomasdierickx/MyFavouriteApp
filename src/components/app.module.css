@@ -58,3 +58,24 @@
     color: rgb(65, 165, 228);
     margin-top: 2rem;
 }
+
+.searchCategories {
+    padding: 1rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.searchCategory {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.searchCategoryName {
+    font-size: .8rem;
+    margin: 0;
+}
