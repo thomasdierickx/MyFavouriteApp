@@ -16,7 +16,7 @@ const NavBar = () => {
             <BottomNavigationAction label="Zoeken" to="/" icon={<SearchIcon />} />
             <BottomNavigationAction label="Profiel" to="/profile" icon={<PersonIcon />} />
             <BottomNavigationAction label="Verzamelingen" to="/likes" icon={<FavoriteIcon />} />
-            <BottomNavigationAction label="Meer" to="" icon={<GiHamburgerMenu />} />
+            <BottomNavigationAction label="Meer" to="/more" icon={<GiHamburgerMenu style={{ height: "2rem", width: "2rem" }} />} />
         </BottomNavigation>
     </Paper>);
 }

@@ -9,6 +9,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Likes from './pages/Likes';
+import More from './pages/More';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="likes" element={<Likes />} />
+          <Route path="more" element={<More />} />
         </Route>
       </Routes>
     </Box>
