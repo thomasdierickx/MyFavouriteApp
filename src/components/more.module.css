@@ -28,6 +28,7 @@
     align-items: center;
     gap: 2rem;
     height: 1.5rem;
+    padding-left: 1rem;
 }
 
 .outlineNoBorder{

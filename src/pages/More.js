@@ -1,6 +1,14 @@
 import more from '../components/more.module.css';
 import { Box } from '@mui/material';
 
+// IMPORT ICONS
+import { MdReviews, MdWatchLater, MdForum } from 'react-icons/md';
+import { HiPhotograph } from 'react-icons/hi';
+import { BsFillPatchCheckFill, BsFillCalendarEventFill, BsSuitClubFill, BsLifePreserver } from 'react-icons/bs';
+import { GoPulse } from 'react-icons/go';
+import { IoIosNotifications, IoIosSettings } from 'react-icons/io';
+import { RiMessage2Fill, RiBuilding3Fill } from 'react-icons/ri';
+
 const More = () => {
     return (
         <>
@@ -9,63 +17,63 @@ const More = () => {
             </header>
             <article className={more.outline} style={{ color: "rgb(0, 195, 255)", marginTop: "-1rem" }} >
                 <section className={more.outlineItem}>
-                    "icon"
+                    <MdReviews style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Voeg een review toe</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <HiPhotograph style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Voeg een foto of video toe</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <BsFillPatchCheckFill style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Check In</p>
                 </section>
             </article>
             <article className={more.outline}>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <GoPulse style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Activiteit</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <IoIosNotifications style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Meldingen</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <MdWatchLater style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Onlangs bekeken</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <BsFillCalendarEventFill style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Evenementen</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <RiMessage2Fill style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Berichten</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <BsFillPatchCheckFill style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Check-ins van vrienden</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <MdForum style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Forum</p>
                 </section>
             </article>
             <article className={more.outlineNoBorder}>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <BsSuitClubFill style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Yelp Elite Club</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <RiBuilding3Fill style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Voeg bedrijf toe</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <IoIosSettings style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Instellingen</p>
                 </section>
                 <section className={more.outlineItem}>
-                    "icon"
+                    <BsLifePreserver style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Ondersteuning</p>
                 </section>
             </article>
