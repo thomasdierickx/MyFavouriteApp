@@ -1,5 +1,4 @@
 import more from '../components/more.module.css';
-import { Box } from '@mui/material';
 
 // IMPORT ICONS
 import { MdReviews, MdWatchLater, MdForum } from 'react-icons/md';

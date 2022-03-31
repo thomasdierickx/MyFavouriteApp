@@ -1,6 +1,7 @@
 import styles from '../components/app.module.css';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 // ICONS INLADEN
 import { FiCoffee } from 'react-icons/fi';
 import { BiDrink, BiGasPump } from 'react-icons/bi';
@@ -15,10 +16,8 @@ import { IoIosRestaurant } from 'react-icons/io';
 import { useState } from 'react';
 
 // ROUTER
-import { Route, Routes } from "react-router-dom";
-
-// COMPONENTS
-import Layout from '../components/Layout';
+import React from 'react';
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -79,42 +78,59 @@ const Home = () => {
                         </section>
                     </article> :
                     <article className={styles.searchCategories}>
-                        <section className={styles.searchCategory}>
-                            <IoIosRestaurant style={{ height: "2.5rem", width: "2.5rem" }} />
-                            <p className={styles.searchCategoryName} >Restaurant</p>
-                        </section>
-                        <section className={styles.searchCategory}>
-                            <FiCoffee style={{ height: "2.5rem", width: "2.5rem" }} />
-                            <p className={styles.searchCategoryName} >Koffie en thee</p>
-                        </section>
-                        <section className={styles.searchCategory}>
-                            <GiHairStrands style={{ height: "2.5rem", width: "2.5rem" }} />
-                            <p className={styles.searchCategoryName} >Kappers</p>
-                        </section>
-                        <section className={styles.searchCategory}>
-                            <BiDrink style={{ height: "2.5rem", width: "2.5rem" }} />
-                            <p className={styles.searchCategoryName} >Bars</p>
-                        </section>
-                        <section className={styles.searchCategory}>
-                            <GrDeliver style={{ height: "2.5rem", width: "2.5rem" }} />
-                            <p className={styles.searchCategoryName} >Thuislevering</p>
-                        </section>
-                        <section className={styles.searchCategory}>
-                            <MdOutlineTakeoutDining style={{ height: "2.5rem", width: "2.5rem" }} />
-                            <p className={styles.searchCategoryName} >TakeOut</p>
-                        </section>
-                        <section className={styles.searchCategory}>
-                            <MdOutlineDateRange style={{ height: "2.5rem", width: "2.5rem" }} />
-                            <p className={styles.searchCategoryName} >Reservation</p>
-                        </section>
-                        <section className={styles.searchCategory}>
-                            <BiGasPump style={{ height: "2.5rem", width: "2.5rem" }} />
-                            <p className={styles.searchCategoryName} >Tankstations</p>
-                        </section>
+                        <Link to="/restaurants" style={{ textDecoration: "none", color: "black" }}>
+                            <section className={styles.searchCategory}>
+                                <IoIosRestaurant style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >Restaurant</p>
+                            </section>
+                        </Link>
+                        <Link to="/coffee" style={{ textDecoration: "none", color: "black" }}>
+                            <section className={styles.searchCategory}>
+                                <FiCoffee style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >Koffie en thee</p>
+                            </section>
+                        </Link>
+                        <Link to="/kappers" style={{ textDecoration: "none", color: "black" }}>
+                            <section className={styles.searchCategory}>
+                                <GiHairStrands style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >Kappers</p>
+                            </section>
+                        </Link>
+                        <Link to="/bars" style={{ textDecoration: "none", color: "black" }}>
+                            <section className={styles.searchCategory}>
+                                <BiDrink style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >Bars</p>
+                            </section>
+                        </Link>
+                        <Link to="/delivery" style={{ textDecoration: "none", color: "black" }}>
+                            <section className={styles.searchCategory}>
+                                <GrDeliver style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >Thuislevering</p>
+                            </section>
+                        </Link>
+                        <Link to="/takeout" style={{ textDecoration: "none", color: "black" }}>
+                            <section className={styles.searchCategory}>
+                                <MdOutlineTakeoutDining style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >TakeOut</p>
+                            </section>
+                        </Link>
+                        <Link to="/reservation" style={{ textDecoration: "none", color: "black" }}>
+                            <section className={styles.searchCategory}>
+                                <MdOutlineDateRange style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >Reservation</p>
+                            </section>
+                        </Link>
+                        <Link to="/tankstations" style={{ textDecoration: "none", color: "black" }}>
+                            <section className={styles.searchCategory}>
+                                <BiGasPump style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >Tankstations</p>
+                            </section>
+                        </Link>
                     </article>
                 }
 
             </Box >
+            <Outlet />
         </>
     );
 }
