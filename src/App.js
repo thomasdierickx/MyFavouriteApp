@@ -18,6 +18,7 @@ import Delivery from './pages/Delivery';
 import TakeOut from './pages/TakeOut';
 import Reservation from './pages/Reservation';
 import TankStations from './pages/TankStations';
+import Detail from './pages/Detail';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="takeout" element={<TakeOut />} />
           <Route path="reservation" element={<Reservation />} />
           <Route path="tankstations" element={<TankStations />} />
+          <Route path="detail/:id" element={<Detail />} />
         </Route>
       </Routes>
     </Box>
