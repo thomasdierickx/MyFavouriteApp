@@ -1,15 +1,6 @@
-import { Card, CardContent, CardMedia, Chip, Stack, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 const RestaurantCard = ({ restaurant }) => {
-
-    // <Stack direction="row" spacing={1} mt={2}>
-    //     {restaurant.attributes.category.data.map(category =>
-    //         <Chip key={category.attributes.name} label={category.attributes.name} />
-    //     )}
-
-    // </Stack>
-
-    console.log(restaurant.attributes.images.data[0].attributes.url);
 
     return (<Card sx={{ maxWidth: 345 }}>
         <CardMedia

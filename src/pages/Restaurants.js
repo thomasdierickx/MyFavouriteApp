@@ -18,7 +18,7 @@ const Restaurants = () => {
                 {error && <Alert severity="error">Something went wrong</Alert>}
                 <Stack spacing={2}>
                     {restaurants && restaurants.data.map(restaurant =>
-                        <ImageListItem key={restaurant.id} component={Link} to={`/detail/${restaurant.id}`}>
+                        <ImageListItem key={restaurant.id} component={Link} to={`/detail/${restaurant.id}`} data={restaurant}>
                             <RestaurantCard key={restaurant.id} restaurant={restaurant} />
                         </ImageListItem>
                     )}
