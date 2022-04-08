@@ -17,6 +17,8 @@ const Detail = ({ datax }) => {
     console.log(data);
     const [click, setClick] = useState(true);
 
+    // ${data.data.attributes.images.data[0].attributes.formats.small.url}
+
     return (
         <>
             <article style={{ backgroundImage: `url(${data.data.attributes.images.data[0].attributes.formats.small.url})`, height: "30vh", backgroundSize: "cover" }}>
@@ -36,22 +38,28 @@ const Detail = ({ datax }) => {
                 {isLoading && <CircularProgress />}
                 {isError && <Alert severity="error">Something went wrong</Alert>}
                 <Stack component="section">
-                    <Typography variant="h2" paddingLeft={2} paddingTop={4} color="white" fontSize="2rem" fontWeight="bold">Title --VAR--</Typography>
-                    <Typography varaint="p" marginLeft={2}>{ }</Typography>
+                    <Typography variant="h2" paddingLeft={2} paddingTop={4} color="white" fontSize="3rem" fontWeight="bold">{data.data.attributes.name}</Typography>
+                    <Typography varaint="p" marginLeft={2}>
+                        <AiFillStar style={{ color: "orange", height: "2rem", width: "2rem" }} />
+                        <AiFillStar style={{ color: "orange", height: "2rem", width: "2rem" }} />
+                        <AiFillStar style={{ color: "orange", height: "2rem", width: "2rem" }} />
+                        <AiFillStar style={{ color: "orange", height: "2rem", width: "2rem" }} />
+                        <AiOutlineStar style={{ color: "orange", height: "2rem", width: "2rem" }} />
+                    </Typography>
                 </Stack>
             </article>
 
             {
                 !click ?
-                    <section style={{ width: "60vw", backgroundColor: "white", top: "0", right: "0", position: "absolute", paddingLeft: "1rem" }} onClick={() => setClick(!click)} >
-                        <p>Schrijf een review</p>
+                    <section style={{ width: "60vw", backgroundColor: "lightgrey", top: "0", right: "0", position: "absolute", paddingLeft: "1rem", display: "flex", flexDirection: "column", justifyContent: "", alignItems: "flex-start" }} onClick={() => setClick(!click)} >
+                        <a style={{ textDecoration: "none", color: "black", width: "auto", paddingTop: ".5rem", paddingBottom: ".5rem" }} href="#review">Schrijf een review</a>
                         <p>Voeg een foto of video toe</p>
                         <p>Check In</p>
                         <p>Voeg een tip toe</p>
                         <p>Aan favorieten toevoegen</p>
-                        <p>Bellen</p>
-                        <p>Bedrijf bewerken</p>
-                        <p>Bedrijf opslaan in contacten</p>
+                        <a style={{ textDecoration: "none", color: "black", width: "auto", paddingTop: ".5rem", paddingBottom: ".5rem" }} href="#company">Bellen</a>
+                        <a style={{ textDecoration: "none", color: "black", width: "auto", paddingTop: ".5rem", paddingBottom: ".5rem" }} href="#company">Bedrijf bewerken</a>
+                        <a style={{ textDecoration: "none", color: "black", width: "auto", paddingTop: ".5rem", paddingBottom: ".5rem" }} href="#company">Bedrijf opslaan in contacten</a>
                     </section> : ""
             }
             <Stack component="article">
@@ -86,11 +94,11 @@ const Detail = ({ datax }) => {
                 <div style={{ backgroundColor: "lightgrey", borderRadius: "50%", width: "3rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <BsBookmark style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
                 </div>
-            </Stack>
+            </Stack><a id="company"></a>
             <Stack component="article" padding={2} style={{ borderBottom: "solid .7rem lightgrey" }}>
                 <Typography variant="h3" fontSize="2rem" fontWeight="bold">Bedrijfsinfo</Typography>
                 <Stack component="section" display="flex" justifyContent="space-between" alignItems="center" flexDirection="row" paddingTop={2} paddingBottom={2} style={{ borderBottom: "solid .1rem lightgrey" }} >
-                    <Typography variant="p">Bel --VAR--</Typography>
+                    <Typography variant="p">Bel 0{data.data.attributes.number}</Typography>
                     <FiPhoneCall style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
                 </Stack>
                 <Stack component="section" display="flex" justifyContent="space-between" alignItems="center" flexDirection="row" paddingTop={2} paddingBottom={2} style={{ borderBottom: "solid .1rem lightgrey" }} >
@@ -98,13 +106,13 @@ const Detail = ({ datax }) => {
                     <RiRestaurantLine style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
                 </Stack>
                 <Stack component="section" display="flex" justifyContent="space-between" alignItems="center" flexDirection="row" paddingTop={2} paddingBottom={2} style={{ borderBottom: "solid .1rem lightgrey" }} >
-                    <Typography variant="p">Website --VAR--</Typography>
+                    <Typography variant="p">Website {data.data.attributes.website}</Typography>
                     <AiOutlineExport style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
                 </Stack>
                 <Stack component="section" display="flex" justifyContent="space-between" alignItems="center" flexDirection="row" paddingTop={2} paddingBottom={2}>
                     <Typography variant="p">Werk je bij dit bedrijf?</Typography>
                     <BsCheck style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
-                </Stack>
+                </Stack><a id="review"></a>
             </Stack>
             <Stack component="article" padding={2} style={{ borderBottom: "solid .7rem lightgrey" }}>
                 <Typography variant="h3" fontSize="2rem" fontWeight="bold">Leave a review</Typography>
@@ -115,7 +123,9 @@ const Detail = ({ datax }) => {
                 {data.data.attributes.reviews.data.map(review =>
                     <Stack key={review.id} paddingTop={2}>
                         <Typography variant="h4" fontSize="1.5rem">{review.attributes.title}</Typography>
-                        <p>{review.attributes.stars_amount}</p>
+                        <p style={{ fontSize: ".8rem", color: "grey" }}>
+                            <AiFillStar /> {review.attributes.stars_amount} &#9679; {review.attributes.date}</p>
+                        <Typography variant="p" fontSize="1rem">{review.attributes.description}</Typography>
                     </Stack>
                 )}
             </Stack>
