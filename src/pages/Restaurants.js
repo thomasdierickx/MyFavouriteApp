@@ -9,6 +9,7 @@ const Restaurants = () => {
 
     const { data: restaurants, isloading, error } = useFetch("http://localhost:1337/api/restaurants?populate=*");
 
+    console.log(restaurants);
     return (
         <>
             <BackButton />

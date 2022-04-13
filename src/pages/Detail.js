@@ -1,7 +1,6 @@
 import { Alert, CircularProgress, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import BackButton from "./BackButtonWhite";
-import { useQuery } from 'react-query';
 
 // Icons
 import { BsBookmark, BsShareFill, BsMap, BsCamera, BsPatchCheck, BsCheck } from 'react-icons/bs';
@@ -30,7 +29,10 @@ const Detail = () => {
     return (
         <>
             {
-                detail == null ? <CircularProgress /> :
+                detail == null ?
+                    <Stack style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }} >
+                        <CircularProgress width="15rem" height="15rem" />
+                    </Stack> :
                     <>
                         <article
                             style={{

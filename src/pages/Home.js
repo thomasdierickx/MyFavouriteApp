@@ -3,11 +3,10 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 // ICONS INLADEN
-import { FiCoffee } from 'react-icons/fi';
+import { AiOutlineShopping } from 'react-icons/ai';
 import { BiDrink, BiGasPump } from 'react-icons/bi';
 import { GrDeliver } from 'react-icons/gr';
-import { GiHairStrands } from 'react-icons/gi';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { GiHamburgerMenu, GiHairStrands } from 'react-icons/gi';
 import { BsPersonCircle } from 'react-icons/bs';
 import { MdPlace, MdFavorite, MdOutlineTakeoutDining, MdOutlineDateRange } from 'react-icons/md';
 import { RiBuilding2Fill } from 'react-icons/ri';
@@ -86,8 +85,8 @@ const Home = () => {
                         </Link>
                         <Link to="/coffee" style={{ textDecoration: "none", color: "black" }}>
                             <section className={styles.searchCategory}>
-                                <FiCoffee style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Koffie en thee</p>
+                                <AiOutlineShopping style={{ height: "2.5rem", width: "2.5rem" }} />
+                                <p className={styles.searchCategoryName} >Shopping</p>
                             </section>
                         </Link>
                         <Link to="/kappers" style={{ textDecoration: "none", color: "black" }}>
@@ -105,7 +104,7 @@ const Home = () => {
                         <Link to="/delivery" style={{ textDecoration: "none", color: "black" }}>
                             <section className={styles.searchCategory}>
                                 <GrDeliver style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Thuislevering</p>
+                                <p className={styles.searchCategoryName} >Going Out</p>
                             </section>
                         </Link>
                         <Link to="/takeout" style={{ textDecoration: "none", color: "black" }}>
