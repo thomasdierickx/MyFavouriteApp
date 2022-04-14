@@ -1,6 +1,7 @@
-import { Alert, CircularProgress, Stack, Typography } from "@mui/material";
+import { Alert, CircularProgress, Stack, Typography, TextField, Snackbar } from "@mui/material";
 import { useParams } from "react-router-dom";
 import BackButton from "./BackButtonWhite";
+import { useForm } from "react-hook-form";
 
 // Icons
 import { BsBookmark, BsShareFill, BsMap, BsCamera, BsPatchCheck, BsCheck } from 'react-icons/bs';
@@ -9,22 +10,57 @@ import { useState } from "react";
 import { AiOutlineExport, AiOutlineInfoCircle, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { RiRestaurantLine } from 'react-icons/ri';
 import useFetch from "../hooks/useFetch";
+import { ImCross } from 'react-icons/im';
+import { QueryClient, useMutation } from "react-query";
+import { LoadingButton } from "@mui/lab";
+
+let today = new Date();
+let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
+
+const defaultValues = {
+    title: "Test",
+    description: "Dit is een test",
+    stars_amount: 3,
+    date: date.toString(),
+    restaurant: 1,
+    user: 1
+}
 
 const Detail = () => {
     const { id } = useParams();
 
     const { data: detail, isloading, error } = useFetch(`http://localhost:1337/api/restaurants/${id}/?populate=*`);
 
-    const [click, setClick] = useState(true);
+    const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "all", defaultValues })
 
-    if (detail == null) {
-        console.log("Dit werkt");
-    } else if (detail) {
-        console.log("Deze img werkt");
+    const [click, setClick] = useState(true);
+    const [clickReview, setClickReview] = useState(true);
+
+    const postReview = async (review) => {
+        return await fetch("http://localhost:1337/api/reviews", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ data: review })
+        }).then(r => r.json())
     }
 
-    // { isloading && <CircularProgress /> }
-    // { error && <Alert severity="error">Something went wrong</Alert>}
+    const mutation = useMutation(postReview, {
+        onSuccess: () => {
+            console.log("Review added");
+            QueryClient.invalidateQueries("reviews");
+            reset();
+        }
+    })
+
+    const onSubmit = (data) => {
+        mutation.mutate(data)
+    }
+
+    const handleCloseSnackbar = () => {
+        mutation.reset();
+    }
 
     return (
         <>
@@ -102,8 +138,88 @@ const Detail = () => {
                         </Stack>
                         <Stack component="article" display="flex" justifyContent="center" alignItems="center" flexDirection="column">
                             <Typography variant="p" fontWeight="bold" paddingTop={2}>Schrijf een review</Typography>
-                            <p>REVIEW COMPONENTS INVOEGEN</p>
+                            {clickReview ?
+                                <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", gap: ".2rem", padding: "1rem" }} onClick={() => setClickReview(!clickReview)} >
+                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                </div> : ""
+                            }
                         </Stack>
+                        {
+                            !clickReview ?
+                                <Stack as="form" noValidate onSubmit={handleSubmit(onSubmit)} position="absolute" top="0" left="0" width="100vw" height="100vh" backgroundColor="white">
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <Typography variant="h3" fontSize="1rem" fontWeight="bold" padding="1rem">{detail.data.attributes.name}</Typography>
+                                        <ImCross style={{ margin: "1rem", width: "1rem", height: "1rem", color: "black" }} onClick={() => setClickReview(!clickReview)} />
+                                    </div>
+                                    <div style={{ display: "flex", alignItems: "flex-start", gap: ".2rem", padding: "0rem 1rem 1rem 1rem" }} onClick={() => setClickReview(!clickReview)} >
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                    </div>
+                                    <div style={{ padding: "1rem" }}>
+                                        <TextField
+                                            id="title"
+                                            label="title"
+                                            required
+                                            error={!!errors?.title}
+                                            helperText={errors?.title?.message}
+                                            {...register("title", { required: "title is required" })}
+                                        />
+                                    </div>
+                                    <div style={{ padding: "1rem" }}>
+                                        <TextField
+                                            id="description"
+                                            label="description"
+                                            required
+                                            error={!!errors?.description}
+                                            helperText={errors?.description?.message}
+                                            multiline
+                                            rows={6}
+                                            fullWidth
+                                            {...register("description", { required: "Description is required" })}
+                                        />
+                                    </div>
+                                    <div style={{ padding: "1rem" }}>
+                                        <TextField
+                                            id="stars_amount"
+                                            label="stars_amount"
+                                            type="number"
+                                            required
+                                            min={1}
+                                            max={5}
+                                            error={!!errors?.stars_amount}
+                                            helperText={errors?.stars_amount?.message}
+                                            {...register("stars_amount", { required: "Stars are required" })}
+                                        />
+                                    </div>
+                                    <div style={{ padding: "1rem", display: "none" }}>
+                                        <TextField
+                                            id="date"
+                                            label="date"
+                                            type="date"
+                                            value={date}
+                                            required
+                                            error={!!errors?.date}
+                                            helperText={errors?.date?.message}
+                                            {...register("date", { required: "Date are required" })}
+                                        />
+                                    </div>
+                                    <div style={{ padding: "1rem" }}>
+                                        <LoadingButton loading={mutation.isLoading} loadingIndicator="Adding Review" type="submit" variant="contained" disabled={!isValid}>
+                                            Add Review
+                                        </LoadingButton>
+                                    </div>
+                                    <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+                                        <Alert severity="success" sx={{ width: '100%' }}>Review added</Alert>
+                                    </Snackbar>
+                                </Stack> : ""
+                        }
                         <Stack component="article" display="flex" justifyContent="space-evenly" alignItems="center" paddingTop={2} flexDirection="row" style={{ paddingBottom: "2rem", borderBottom: "solid .7rem lightgrey" }}>
                             <div style={{ backgroundColor: "lightgrey", borderRadius: "50%", width: "3rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                 <BsCamera style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
