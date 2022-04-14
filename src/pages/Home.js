@@ -22,6 +22,30 @@ const Home = () => {
 
     const [click, setClick] = useState(false);
 
+    const location = [
+        "restaurants",
+        "coffee",
+        "kappers",
+        "bars",
+        "delivery",
+        "takeout",
+        "reservation",
+        "tankstations"
+    ];
+
+    const amount = [0, 1, 2, 3, 4, 5, 6, 7];
+
+    const icon = [
+        <IoIosRestaurant style={{ height: "2.5rem", width: "2.5rem" }} />,
+        <AiOutlineShopping style={{ height: "2.5rem", width: "2.5rem" }} />,
+        <GiHairStrands style={{ height: "2.5rem", width: "2.5rem" }} />,
+        <BiDrink style={{ height: "2.5rem", width: "2.5rem" }} />,
+        <GrDeliver style={{ height: "2.5rem", width: "2.5rem" }} />,
+        <MdOutlineTakeoutDining style={{ height: "2.5rem", width: "2.5rem" }} />,
+        <MdOutlineDateRange style={{ height: "2.5rem", width: "2.5rem" }} />,
+        <BiGasPump style={{ height: "2.5rem", width: "2.5rem" }} />
+    ];
+
     return (
         <>
             <Box>
@@ -77,54 +101,14 @@ const Home = () => {
                         </section>
                     </article> :
                     <article className={styles.searchCategories}>
-                        <Link to="/restaurants" style={{ textDecoration: "none", color: "black" }}>
-                            <section className={styles.searchCategory}>
-                                <IoIosRestaurant style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Restaurant</p>
-                            </section>
-                        </Link>
-                        <Link to="/coffee" style={{ textDecoration: "none", color: "black" }}>
-                            <section className={styles.searchCategory}>
-                                <AiOutlineShopping style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Shopping</p>
-                            </section>
-                        </Link>
-                        <Link to="/kappers" style={{ textDecoration: "none", color: "black" }}>
-                            <section className={styles.searchCategory}>
-                                <GiHairStrands style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Kappers</p>
-                            </section>
-                        </Link>
-                        <Link to="/bars" style={{ textDecoration: "none", color: "black" }}>
-                            <section className={styles.searchCategory}>
-                                <BiDrink style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Bars</p>
-                            </section>
-                        </Link>
-                        <Link to="/delivery" style={{ textDecoration: "none", color: "black" }}>
-                            <section className={styles.searchCategory}>
-                                <GrDeliver style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Going Out</p>
-                            </section>
-                        </Link>
-                        <Link to="/takeout" style={{ textDecoration: "none", color: "black" }}>
-                            <section className={styles.searchCategory}>
-                                <MdOutlineTakeoutDining style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >TakeOut</p>
-                            </section>
-                        </Link>
-                        <Link to="/reservation" style={{ textDecoration: "none", color: "black" }}>
-                            <section className={styles.searchCategory}>
-                                <MdOutlineDateRange style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Reservation</p>
-                            </section>
-                        </Link>
-                        <Link to="/tankstations" style={{ textDecoration: "none", color: "black" }}>
-                            <section className={styles.searchCategory}>
-                                <BiGasPump style={{ height: "2.5rem", width: "2.5rem" }} />
-                                <p className={styles.searchCategoryName} >Tankstations</p>
-                            </section>
-                        </Link>
+                        {amount && amount.map(i =>
+                            <Link to={`/${location[i]}`} key={i} style={{ textDecoration: "none", color: "black" }}>
+                                <section className={styles.searchCategory}>
+                                    {icon[i]}
+                                    <p className={styles.searchCategoryName}>{location[i]}</p>
+                                </section>
+                            </Link>
+                        )}
                     </article>
                 }
 
