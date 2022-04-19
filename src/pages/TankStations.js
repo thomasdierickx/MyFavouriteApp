@@ -3,7 +3,7 @@ import useFetch from "../hooks/useFetch";
 import BackButton from "./BackButton";
 
 import { Alert, CircularProgress, Container, ImageListItem, Link, Stack, Typography } from '@mui/material';
-import HairDresserCard from '../components/HairDresserCard';
+import HairDresserCard from '../components/Card';
 
 const TankStations = () => {
 

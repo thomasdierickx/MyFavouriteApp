@@ -29,7 +29,7 @@ const defaultValues = {
 const Detail = () => {
     const { id } = useParams();
 
-    const { data: detail, isloading, error } = useFetch(`http://localhost:1337/api/restaurants/${id}/?populate=*`);
+    const { data: detail } = useFetch(`http://localhost:1337/api/restaurants/${id}/?populate=*`);
 
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "all", defaultValues })
 
@@ -70,6 +70,7 @@ const Detail = () => {
                         <CircularProgress width="15rem" height="15rem" />
                     </Stack> :
                     <>
+                        <a id="writeReview"></a>
                         <article
                             style={{
                                 backgroundImage:
@@ -139,13 +140,15 @@ const Detail = () => {
                         <Stack component="article" display="flex" justifyContent="center" alignItems="center" flexDirection="column">
                             <Typography variant="p" fontWeight="bold" paddingTop={2}>Schrijf een review</Typography>
                             {clickReview ?
-                                <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", gap: ".2rem", padding: "1rem" }} onClick={() => setClickReview(!clickReview)} >
-                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
-                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
-                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
-                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
-                                    <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
-                                </div> : ""
+                                <a href="#writeReview" style={{ textDecoration: "none" }}>
+                                    <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", gap: ".2rem", padding: "1rem" }} onClick={() => setClickReview(!clickReview)} >
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                        <AiFillStar style={{ backgroundColor: "red", color: "white", width: "2.5rem", height: "2.5rem" }} />
+                                    </div>
+                                </a> : ""
                             }
                         </Stack>
                         {
@@ -252,7 +255,42 @@ const Detail = () => {
                         </Stack>
                         <Stack component="article" padding={2} style={{ borderBottom: "solid .7rem lightgrey" }}>
                             <Typography variant="h3" fontSize="2rem" fontWeight="bold">Leave a review</Typography>
-                            <p>--REVIEW FORM--</p>
+                            {
+                                clickReview ?
+                                    <div style={{ padding: "1rem" }}>
+                                        <a href="#writeReview" style={{ textDecoration: "none" }}>
+                                            <TextField
+                                                id="description"
+                                                label="description"
+                                                required
+                                                error={!!errors?.description}
+                                                helperText={errors?.description?.message}
+                                                multiline
+                                                rows={2}
+                                                fullWidth
+                                                {...register("description", { required: "Description is required" })}
+                                                onClick={() => setClickReview(!clickReview)}
+                                            />
+                                        </a>
+                                    </div> :
+                                    <div style={{ padding: "1rem" }}>
+                                        <a href="#writeReview" style={{ textDecoration: "none" }}>
+                                            <TextField
+                                                id="description"
+                                                label="description"
+                                                required
+                                                error={!!errors?.description}
+                                                helperText={errors?.description?.message}
+                                                multiline
+                                                rows={2}
+                                                fullWidth
+                                                {...register("description", { required: "Description is required" })}
+                                                onClick={() => setClickReview(clickReview)}
+                                            />
+                                        </a>
+                                    </div>
+                            }
+
                         </Stack>
                         <Stack component="article" padding={2} style={{ borderBottom: "solid .7rem lightgrey" }}>
                             <Typography variant="h3" fontSize="2rem" fontWeight="bold">Aanbevolen reviews</Typography>

@@ -3,7 +3,7 @@ import useFetch from "../hooks/useFetch";
 import BackButton from "./BackButton";
 
 import { Alert, CircularProgress, Container, ImageListItem, Link, Stack, Typography } from '@mui/material';
-import HairDresserCard from '../components/HairDresserCard';
+import HairDresserCard from '../components/Card';
 
 const Kappers = () => {
 
@@ -29,7 +29,7 @@ const Kappers = () => {
                         {error && <Alert severity="error">Something went wrong</Alert>}
                         <Stack spacing={2}>
                             {categories.data[1].attributes.restaurants && categories.data[1].attributes.restaurants.data.map((category, i) =>
-                                <ImageListItem key={i} component={Link} to={`/detail/${category.id}`} restaurant={category}>
+                                <ImageListItem key={i} component={Link} to={`/detail/${category.id}`} restaurant={category} style={{ textDecoration: "none" }}>
                                     <HairDresserCard key={category.id} restaurant={category} />
                                 </ImageListItem>
                             )}
