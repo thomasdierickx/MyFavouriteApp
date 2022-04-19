@@ -3,48 +3,21 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 // ICONS INLADEN
-import { AiOutlineShopping } from 'react-icons/ai';
-import { BiDrink, BiGasPump } from 'react-icons/bi';
-import { GrDeliver } from 'react-icons/gr';
-import { GiHamburgerMenu, GiHairStrands } from 'react-icons/gi';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import { BsPersonCircle } from 'react-icons/bs';
-import { MdPlace, MdFavorite, MdOutlineTakeoutDining, MdOutlineDateRange } from 'react-icons/md';
+import { MdPlace, MdFavorite } from 'react-icons/md';
 import { RiBuilding2Fill } from 'react-icons/ri';
 import { ImCross } from 'react-icons/im';
-import { IoIosRestaurant } from 'react-icons/io';
 import { useState } from 'react';
 
 // ROUTER
 import React from 'react';
 import { Link } from "react-router-dom";
+import useFetch from '../hooks/useFetch';
 
 const Home = () => {
-
+    const { data: categories } = useFetch("http://localhost:1337/api/categories?populate=*");
     const [click, setClick] = useState(false);
-
-    const location = [
-        "restaurants",
-        "coffee",
-        "kappers",
-        "bars",
-        "delivery",
-        "takeout",
-        "reservation",
-        "tankstations"
-    ];
-
-    const amount = [0, 1, 2, 3, 4, 5, 6, 7];
-
-    const icon = [
-        <IoIosRestaurant style={{ height: "2.5rem", width: "2.5rem" }} />,
-        <AiOutlineShopping style={{ height: "2.5rem", width: "2.5rem" }} />,
-        <GiHairStrands style={{ height: "2.5rem", width: "2.5rem" }} />,
-        <BiDrink style={{ height: "2.5rem", width: "2.5rem" }} />,
-        <GrDeliver style={{ height: "2.5rem", width: "2.5rem" }} />,
-        <MdOutlineTakeoutDining style={{ height: "2.5rem", width: "2.5rem" }} />,
-        <MdOutlineDateRange style={{ height: "2.5rem", width: "2.5rem" }} />,
-        <BiGasPump style={{ height: "2.5rem", width: "2.5rem" }} />
-    ];
 
     return (
         <>
@@ -101,11 +74,17 @@ const Home = () => {
                         </section>
                     </article> :
                     <article className={styles.searchCategories}>
-                        {amount && amount.map(i =>
-                            <Link to={`/${location[i]}`} key={i} style={{ textDecoration: "none", color: "black" }}>
+                        {categories && categories.data.map((category, i) =>
+                            <Link to={`/${category.attributes.name}`} key={i} style={{ textDecoration: "none", color: "black" }}>
                                 <section className={styles.searchCategory}>
-                                    {icon[i]}
-                                    <p className={styles.searchCategoryName}>{location[i]}</p>
+                                    <div style={{
+                                        backgroundImage: `url(${category.attributes.icon.data.attributes.url})`,
+                                        backgroundRepeat: "no-repeat",
+                                        backgroundSize: "3rem",
+                                        width: "3rem",
+                                        height: "3rem",
+                                    }}></div>
+                                    <p className={styles.searchCategoryName}>{category.attributes.name}</p>
                                 </section>
                             </Link>
                         )}

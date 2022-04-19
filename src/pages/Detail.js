@@ -18,8 +18,8 @@ let today = new Date();
 let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
 
 const defaultValues = {
-    title: "Test",
-    description: "Dit is een test",
+    title: "Title",
+    description: "Description",
     stars_amount: 3,
     date: date.toString(),
     restaurant: 1,

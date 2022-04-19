@@ -11,14 +11,14 @@ import Profile from './pages/Profile';
 import Likes from './pages/Likes';
 import More from './pages/More';
 import Restaurants from './pages/Restaurants';
-import Coffee from './pages/Shopping';
+import Shopping from './pages/Shopping';
 import Kappers from './pages/Kappers';
 import Bars from './pages/Bars';
-import Delivery from './pages/Outgoing';
 import TakeOut from './pages/TakeOut';
 import Reservation from './pages/Reservation';
 import TankStations from './pages/TankStations';
 import Detail from './pages/Detail';
+import Outgoing from './pages/Outgoing';
 
 function App() {
 
@@ -32,10 +32,10 @@ function App() {
           <Route path="likes" element={<Likes />} />
           <Route path="more" element={<More />} />
           <Route path="restaurants" element={<Restaurants />} />
-          <Route path="coffee" element={<Coffee />} />
+          <Route path="Winkelen" element={<Shopping />} />
           <Route path="kappers" element={<Kappers />} />
           <Route path="bars" element={<Bars />} />
-          <Route path="Delivery" element={<Delivery />} />
+          <Route path="Uitgaansleven" element={<Outgoing />} />
           <Route path="takeout" element={<TakeOut />} />
           <Route path="reservation" element={<Reservation />} />
           <Route path="tankstations" element={<TankStations />} />
