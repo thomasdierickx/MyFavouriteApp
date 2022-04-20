@@ -11,7 +11,7 @@ const NavBar = () => {
             showLabels
             width="xs"
         >
-            <BottomNavigationAction label="Zoeken" to="/home" icon={<SearchIcon />} />
+            <BottomNavigationAction label="Zoeken" to="/" icon={<SearchIcon />} />
             <BottomNavigationAction label="Profiel" to="/profile" icon={<PersonIcon />} />
             <BottomNavigationAction label="Verzamelingen" to="/likes" icon={<FavoriteIcon />} />
             <BottomNavigationAction label="Meer" to="/more" icon={<GiHamburgerMenu style={{ height: "2rem", width: "2rem" }} />} />

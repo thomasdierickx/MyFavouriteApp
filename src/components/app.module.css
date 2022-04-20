@@ -1,29 +1,9 @@
 .header {
-    background-color: #d32323;
-    height: 3.5rem;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: .5rem;
-}
-
-.logo {
-    background-image: url('https://s3-media0.fl.yelpcdn.com/assets/public/legacy@2x.yji-04bfe4564e3464f0b94b.png');
+    background-image: url("https://res.cloudinary.com/dgebgtlsp/image/upload/v1650460020/food_kbcozz.jpg");
+    background-size: 30rem;
     background-repeat: no-repeat;
-    background-size: 4rem;
-    width: 4rem;
-    height: 2rem;
-}
-
-.hamburgerMenu {
-    background-color: white;
     width: 100vw;
-    height: 93vh;
-
-    position: absolute;
-    top: 20;
+    height: 12rem;
 }
 
 .menu {
