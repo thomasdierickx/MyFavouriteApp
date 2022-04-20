@@ -20,7 +20,6 @@ import TankStations from './pages/TankStations';
 import Detail from './pages/Detail';
 import Outgoing from './pages/Outgoing';
 import LoginRedirect from './pages/LoginRedirect';
-import Login from './pages/Login';
 
 function App() {
 
@@ -29,9 +28,8 @@ function App() {
     <Box>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Login />} />
+          <Route index element={<Home />} />
           <Route exact path="/connect/:providerName/redirect" element={<LoginRedirect />} />
-          <Route path="home" element={<Home />} />
           <Route path="profile" element={<Profile />} />
           <Route path="likes" element={<Likes />} />
           <Route path="more" element={<More />} />
