@@ -22,14 +22,12 @@ const Detail = () => {
 
     const defaultValues = {
         title: "",
-        description: " ",
+        description: "",
         stars_amount: 3,
         date: date.toString(),
         restaurant: id,
         user: JSON.parse(localStorage.getItem('id')),
     }
-
-    console.log(defaultValues);
 
     const { data: detail } = useFetch(`http://localhost:1337/api/restaurants/${id}/?populate=*`);
 
@@ -72,7 +70,7 @@ const Detail = () => {
                         <CircularProgress width="15rem" height="15rem" />
                     </Stack> :
                     <>
-                        <a id="writeReview"></a>
+                        <a id="writeReview" href=".." style={{ display: "none" }} >Review</a>
                         <article
                             style={{
                                 backgroundImage:
@@ -234,7 +232,7 @@ const Detail = () => {
                             <div style={{ backgroundColor: "lightgrey", borderRadius: "50%", width: "3rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
                                 <BsBookmark style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
                             </div>
-                        </Stack><a id="company"></a>
+                        </Stack><a id="company" href=".." style={{ display: "none" }} >Review</a>
                         <Stack component="article" padding={2} style={{ borderBottom: "solid .7rem lightgrey" }}>
                             <Typography variant="h3" fontSize="2rem" fontWeight="bold">Bedrijfsinfo</Typography>
                             <Stack component="section" display="flex" justifyContent="space-between" alignItems="center" flexDirection="row" paddingTop={2} paddingBottom={2} style={{ borderBottom: "solid .1rem lightgrey" }} >
@@ -252,7 +250,7 @@ const Detail = () => {
                             <Stack component="section" display="flex" justifyContent="space-between" alignItems="center" flexDirection="row" paddingTop={2} paddingBottom={2}>
                                 <Typography variant="p">Werk je bij dit bedrijf?</Typography>
                                 <BsCheck style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
-                            </Stack><a id="review"></a>
+                            </Stack><a id="review" href=".." style={{ display: "none" }} >Review</a>
                         </Stack>
                         <Stack component="article" padding={2} style={{ borderBottom: "solid .7rem lightgrey" }}>
                             <Typography variant="h3" fontSize="2rem" fontWeight="bold">Leave a review</Typography>
@@ -261,15 +259,14 @@ const Detail = () => {
                                     <div style={{ padding: "1rem" }}>
                                         <a href="#writeReview" style={{ textDecoration: "none" }}>
                                             <TextField
-                                                id="description"
-                                                label="description"
+                                                id="Clickdescription"
+                                                label="Review"
                                                 required
                                                 error={!!errors?.description}
                                                 helperText={errors?.description?.message}
                                                 multiline
                                                 rows={2}
                                                 fullWidth
-                                                {...register("description", { required: "Description is required" })}
                                                 onClick={() => setClickReview(!clickReview)}
                                             />
                                         </a>
@@ -277,15 +274,14 @@ const Detail = () => {
                                     <div style={{ padding: "1rem" }}>
                                         <a href="#writeReview" style={{ textDecoration: "none" }}>
                                             <TextField
-                                                id="description"
-                                                label="description"
+                                                id="CLickdescription"
+                                                label="Review"
                                                 required
                                                 error={!!errors?.description}
                                                 helperText={errors?.description?.message}
                                                 multiline
                                                 rows={2}
                                                 fullWidth
-                                                {...register("description", { required: "Description is required" })}
                                                 onClick={() => setClickReview(clickReview)}
                                             />
                                         </a>

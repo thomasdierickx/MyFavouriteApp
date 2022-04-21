@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styles from '../components/app.module.css';
 import { Checkbox, Container, Typography } from '@mui/material';
 import more from '../components/more.module.css';
+import useFetch from '../hooks/useFetch';
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+// const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 const providersNames = [
     'twitch',
@@ -55,20 +56,25 @@ const Profile = (props) => {
         text = `Log in met je e-mailadres en wachtwoord.`;
     }
 
-    console.log(localStorage.getItem('data'));
-
     // <div>
     //     <Typography variant='p' component='p' textAlign="center">{text}</Typography>
     //     {buttons}
     // </div>
 
-    console.log(localStorage);
+    let idUser = localStorage.getItem('id');
+    const { data: users } = useFetch(`http://localhost:1337/api/users/${idUser}?populate=*`);
+    console.log(users);
+
+
+    const { data: reviews } = useFetch("http://localhost:1337/api/reviews?populate=*");
+    console.log(reviews);
 
     return (
         <>
             {isLogged ?
                 <>
                     <Container fixed>
+                        <Typography variant='p' fontWeight="bold">Al jouw reviews</Typography>
                         {buttons}
                     </Container>
                 </> :

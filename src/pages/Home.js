@@ -22,13 +22,13 @@ const Home = () => {
                     <Typography component="h1" fontWeight="bold" color="white" fontSize="2rem" padding={2}>
                         We know just the place
                     </Typography>
-                    <IconButton sx={{ bgcolor: 'red', width: "60%", borderRadius: ".5rem", marginLeft: "1rem" }} component="span">
+                    <IconButton sx={{ bgcolor: '#c41200', width: "60%", borderRadius: ".5rem", marginLeft: "1rem" }} component="span">
                         <SearchIcon style={{ color: "white" }} />
-                        <Typography component='p' color="white" paddingLeft={1}>Restaurants Near You</Typography>
+                        <Typography component='p' color="white" paddingLeft={1}>Unieke restaurants</Typography>
                     </IconButton>
                 </header>
                 <article style={{ marginTop: "-2rem" }}>
-                    <IconButton sx={{ bgcolor: 'white', width: "90%", borderRadius: ".5rem", marginLeft: "1rem", boxShadow: ".3rem .3rem .5rem grey", paddingTop: "1rem", paddingBottom: "1rem" }} component="span">
+                    <IconButton sx={{ bgcolor: 'white', width: "90%", borderRadius: ".5rem", marginLeft: "1rem", boxShadow: ".1rem .1rem .5rem grey", paddingTop: "1rem", paddingBottom: "1rem" }} component="span">
                         <SearchIcon style={{ color: "grey", height: "2rem", width: "2rem" }} />
                         <Typography component='p' color="grey" paddingLeft={1}>Search for burgers, delivery, etc...</Typography>
                     </IconButton>

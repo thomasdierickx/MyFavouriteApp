@@ -6,7 +6,7 @@ import { Alert, CircularProgress, Container, ImageListItem, Link, Stack, Typogra
 import HairDresserCard from '../components/Card';
 
 const Reservation = () => {
-    const { data: categories, isloading, error } = useFetch("http://localhost:1337/api/categories?populate=*");
+    const { data: categories, error } = useFetch("http://localhost:1337/api/categories?populate=*");
     return (
         <>
             <BackButton />

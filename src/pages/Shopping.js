@@ -7,7 +7,7 @@ import HairDresserCard from '../components/Card';
 
 const Shopping = () => {
 
-    const { data: categories, isloading, error } = useFetch("http://localhost:1337/api/categories?populate=*");
+    const { data: categories, error } = useFetch("http://localhost:1337/api/categories?populate=*");
     //{categories.data[1].attributes.restaurants.data && categories.data[1].attributes.restaurants.data.map(hair =>
     // <ImageListItem key={hair.attributes.id} component={Link} to={`/detail/${hair.attributes.id}`} data={hair.attributes}>
     //     <RestaurantCard key={hair.attributes.id} hair={hair.attributes} />
