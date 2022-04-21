@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../components/app.module.css';
 import { Checkbox, Container, Typography } from '@mui/material';
 import more from '../components/more.module.css';
-import { Box } from '@mui/system';
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -19,26 +18,14 @@ const LogoutButton = (props) => <button className={styles.button} onClick={props
 
 const Profile = (props) => {
     const [isLogged, setIsLogged] = useState(!!localStorage.getItem('jwt'));
-    const [restaurants, setRestaurants] = useState([]);
-
-    useEffect(() => {
-        if (isLogged) {
-            const jwt = localStorage.getItem('jwt');
-            fetch('http://localhost:1337/api/restaurants', {
-                headers: {
-                    Authorization:
-                        `Bearer ${jwt}`,
-                },
-            })
-                .then(response => response.json())
-                .then(json => setRestaurants(json.data));
-        }
-    }, [isLogged]);
 
     const logout = (e) => {
         e.preventDefault();
         localStorage.removeItem('jwt');
         localStorage.removeItem('username');
+        localStorage.removeItem('id');
+        localStorage.removeItem('email');
+        localStorage.removeItem('data');
         setIsLogged(false);
     };
 
@@ -67,6 +54,8 @@ const Profile = (props) => {
     } else {
         text = `Log in met je e-mailadres en wachtwoord.`;
     }
+
+    console.log(localStorage.getItem('data'));
 
     // <div>
     //     <Typography variant='p' component='p' textAlign="center">{text}</Typography>

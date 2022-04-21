@@ -15,7 +15,6 @@ const Bars = () => {
     //                 )}
 
     // PROPERTIES
-
     return (
         <>
             <BackButton />

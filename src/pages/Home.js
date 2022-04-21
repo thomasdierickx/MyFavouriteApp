@@ -3,7 +3,6 @@ import { Box, IconButton, Typography } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 // ICONS INLADEN
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
 
 // ROUTER
 import React from 'react';
@@ -12,7 +11,6 @@ import useFetch from '../hooks/useFetch';
 
 const Home = () => {
     const { data: categories } = useFetch("http://localhost:1337/api/categories?populate=*");
-    const [click, setClick] = useState(false);
 
     return (
         <>

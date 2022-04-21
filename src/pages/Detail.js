@@ -17,17 +17,19 @@ import { LoadingButton } from "@mui/lab";
 let today = new Date();
 let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
 
-const defaultValues = {
-    title: "Title",
-    description: "Description",
-    stars_amount: 3,
-    date: date.toString(),
-    restaurant: 1,
-    user: 1
-}
-
 const Detail = () => {
     const { id } = useParams();
+
+    const defaultValues = {
+        title: "",
+        description: " ",
+        stars_amount: 3,
+        date: date.toString(),
+        restaurant: id,
+        user: JSON.parse(localStorage.getItem('id')),
+    }
+
+    console.log(defaultValues);
 
     const { data: detail } = useFetch(`http://localhost:1337/api/restaurants/${id}/?populate=*`);
 
@@ -179,7 +181,6 @@ const Detail = () => {
                                         <TextField
                                             id="description"
                                             label="description"
-                                            required
                                             error={!!errors?.description}
                                             helperText={errors?.description?.message}
                                             multiline
