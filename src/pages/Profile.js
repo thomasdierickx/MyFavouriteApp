@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../components/app.module.css';
-import { Checkbox, Container, Typography } from '@mui/material';
+import { Card, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import more from '../components/more.module.css';
 import useFetch from '../hooks/useFetch';
 
@@ -61,20 +61,71 @@ const Profile = (props) => {
     //     {buttons}
     // </div>
 
+    // {
+    //     reviews.data && reviews.data.map(i =>
+    //         <>
+    //             {
+    //                 reviews.data[i].attributes.user.data.id === JSON.parse(localStorage.getItem('id')) ?
+    //                     <p>Dit werkt</p> : <p>Dit niet</p>
+    //             }
+    //         </>
+    //     )
+    // }
+
     let idUser = localStorage.getItem('id');
-    const { data: users } = useFetch(`http://localhost:1337/api/users/${idUser}?populate=*`);
-    console.log(users);
-
-
     const { data: reviews } = useFetch("http://localhost:1337/api/reviews?populate=*");
-    console.log(reviews);
 
     return (
         <>
             {isLogged ?
                 <>
                     <Container fixed>
-                        <Typography variant='p' fontWeight="bold">Al jouw reviews</Typography>
+                        <Typography variant='h5' component="h3" fontWeight="bold">Al jouw reviews</Typography>
+                        {
+                            reviews === null ?
+                                <Stack style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }} >
+                                    <CircularProgress width="15rem" height="15rem" />
+                                </Stack> :
+                                <section style={{ display: "flex", overflowX: "scroll" }} >
+                                    {
+                                        reviews && reviews.data.map((review, i) =>
+                                            <article key={i} style={{ margin: ".5rem" }}>
+                                                {
+                                                    review.attributes.user.data.id === JSON.parse(localStorage.getItem('id')) ?
+                                                        <Card sx={{
+                                                            height: "10rem",
+                                                            width: "20rem",
+                                                            padding: "1rem",
+                                                            margin: "1rem",
+                                                            display: "flex",
+                                                            justifyContent: "space-between",
+                                                            alignItems: "flex-start",
+                                                            flexDirection: "column",
+                                                        }}>
+                                                            <article>
+                                                                <Typography variant='h3' fontSize="1rem" fontWeight="bold">
+                                                                    {review.attributes.title}
+                                                                </Typography>
+                                                                <Typography variant='p' fontSize="1rem" sx={{ marginTop: "1rem" }} >
+                                                                    {review.attributes.description}
+                                                                </Typography>
+                                                            </article>
+                                                            <article>
+                                                                <Typography variant="p" fontSize=".6rem" color="grey">
+                                                                    {review.attributes.date}
+                                                                </Typography>
+                                                            </article>
+                                                            {
+                                                                console.log(review)
+                                                            }
+                                                        </Card> :
+                                                        ""
+                                                }
+                                            </article>
+                                        )
+                                    }
+                                </section>
+                        }
                         {buttons}
                     </Container>
                 </> :
