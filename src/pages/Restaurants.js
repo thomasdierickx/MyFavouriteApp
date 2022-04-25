@@ -4,17 +4,14 @@ import BackButton from "./BackButton";
 
 import { Alert, CircularProgress, Container, ImageListItem, Link, Stack, Typography } from '@mui/material';
 import HairDresserCard from '../components/Card';
+import { useQuery } from "react-query";
 
 const TankStations = () => {
 
-    const { data: categories, error } = useFetch("http://localhost:1337/api/categories?populate=*");
-    //{categories.data[1].attributes.restaurants.data && categories.data[1].attributes.restaurants.data.map(hair =>
-    // <ImageListItem key={hair.attributes.id} component={Link} to={`/detail/${hair.attributes.id}`} data={hair.attributes}>
-    //     <RestaurantCard key={hair.attributes.id} hair={hair.attributes} />
-    // </ImageListItem>
-    //                 )}
-
-    // PROPERTIES
+    const { data: categories, isLoading, error } = useQuery("categories", async () => {
+        const data = await fetch("http://localhost:1337/api/categories?populate=*").then(r => r.json());
+        return data;
+    });
 
     return (
         <>
@@ -28,7 +25,7 @@ const TankStations = () => {
                         <Typography variant="h2" component="h1">{categories.data[0].attributes.name}</Typography>
                         {error && <Alert severity="error">Something went wrong</Alert>}
                         <Stack spacing={2}>
-                            {categories.data[0].attributes.restaurants && categories.data[0].attributes.restaurants.data.map((category, i) =>
+                            {categories && categories.data[0].attributes.restaurants.data.map((category, i) =>
                                 <ImageListItem key={i} component={Link} to={`/detail/${category.id}`} restaurant={category} style={{ textDecoration: "none" }}>
                                     <HairDresserCard key={category.id} restaurant={category} />
                                 </ImageListItem>
@@ -37,7 +34,6 @@ const TankStations = () => {
                         </Stack>
                     </Container>
             }
-
             <Outlet />
         </>
     );

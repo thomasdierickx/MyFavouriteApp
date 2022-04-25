@@ -3,6 +3,8 @@ import styles from '../components/app.module.css';
 import { Card, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import more from '../components/more.module.css';
 import useFetch from '../hooks/useFetch';
+import Geocode from "react-geocode";
+import { useQuery } from 'react-query';
 
 // const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -71,60 +73,83 @@ const Profile = (props) => {
     //         </>
     //     )
     // }
+    const { data: reviews, isLoading, error } = useQuery("reviews", async () => {
+        const data = await fetch("http://localhost:1337/api/reviews?populate=*").then(r => r.json());
+        return data;
+    });
 
-    let idUser = localStorage.getItem('id');
-    const { data: reviews } = useFetch("http://localhost:1337/api/reviews?populate=*");
+    let string = ""
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+        string = `${position.coords.latitude}, ${position.coords.longitude}`;
+        return string;
+    });
 
     return (
         <>
             {isLogged ?
                 <>
                     <Container fixed>
-                        <Typography variant='h5' component="h3" fontWeight="bold">Al jouw reviews</Typography>
                         {
                             reviews === null ?
                                 <Stack style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }} >
                                     <CircularProgress width="15rem" height="15rem" />
                                 </Stack> :
-                                <section style={{ display: "flex", overflowX: "scroll" }} >
-                                    {
-                                        reviews && reviews.data.map((review, i) =>
-                                            <article key={i} style={{ margin: ".5rem" }}>
-                                                {
-                                                    review.attributes.user.data.id === JSON.parse(localStorage.getItem('id')) ?
-                                                        <Card sx={{
-                                                            height: "10rem",
-                                                            width: "20rem",
-                                                            padding: "1rem",
-                                                            margin: "1rem",
-                                                            display: "flex",
-                                                            justifyContent: "space-between",
-                                                            alignItems: "flex-start",
-                                                            flexDirection: "column",
-                                                        }}>
-                                                            <article>
-                                                                <Typography variant='h3' fontSize="1rem" fontWeight="bold">
-                                                                    {review.attributes.title}
-                                                                </Typography>
-                                                                <Typography variant='p' fontSize="1rem" sx={{ marginTop: "1rem" }} >
-                                                                    {review.attributes.description}
-                                                                </Typography>
-                                                            </article>
-                                                            <article>
-                                                                <Typography variant="p" fontSize=".6rem" color="grey">
-                                                                    {review.attributes.date}
-                                                                </Typography>
-                                                            </article>
-                                                            {
-                                                                console.log(review)
-                                                            }
-                                                        </Card> :
-                                                        ""
-                                                }
-                                            </article>
-                                        )
-                                    }
-                                </section>
+                                <>
+                                    <Container fixed>
+                                        <Typography variant='h4' component='h2' align='center' fontWeight='bold' padding={1}>
+                                            {localStorage.getItem('username')}
+                                        </Typography><br />
+                                        <Typography variant="p" fontSize=".6rem" color="grey" align='center'>
+                                            position
+                                        </Typography>
+                                    </Container>
+                                    <Typography variant='h5' component="h3" fontWeight="bold">Mijn impact</Typography>
+                                    <section style={{ display: "flex", overflowX: "scroll" }} >
+                                        {
+                                            reviews && reviews.data.map((review, i) =>
+                                                <article key={i} style={{ margin: ".5rem" }}>
+                                                    {
+                                                        review.attributes.user.data.id === JSON.parse(localStorage.getItem('id')) ?
+                                                            <Card sx={{
+                                                                height: "10rem",
+                                                                width: "20rem",
+                                                                padding: "1rem",
+                                                                margin: "1rem",
+                                                                display: "flex",
+                                                                justifyContent: "space-between",
+                                                                alignItems: "flex-start",
+                                                                flexDirection: "column",
+                                                            }}>
+                                                                <article>
+                                                                    <Typography variant='h3' fontSize="1rem" fontWeight="bold">
+                                                                        {review.attributes.title}
+                                                                    </Typography>
+                                                                    <Typography variant='p' fontSize="1rem" sx={{ marginTop: "1rem" }} >
+                                                                        {review.attributes.description}
+                                                                    </Typography>
+                                                                </article>
+                                                                <article>
+                                                                    <Typography variant="p" fontSize=".8rem" color="grey">
+                                                                        {review.attributes.restaurant.data.attributes.name}
+                                                                    </Typography><br />
+                                                                    <Typography variant="p" fontSize=".6rem" color="grey">
+                                                                        {review.attributes.date}
+                                                                    </Typography>
+                                                                </article>
+                                                                {
+                                                                    console.log(review)
+                                                                }
+                                                            </Card> :
+                                                            ""
+                                                    }
+                                                </article>
+                                            )
+                                        }
+                                    </section>
+                                </>
                         }
                         {buttons}
                     </Container>

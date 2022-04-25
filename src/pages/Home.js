@@ -8,9 +8,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import React from 'react';
 import { Link } from "react-router-dom";
 import useFetch from '../hooks/useFetch';
+import { useQuery } from 'react-query';
 
 const Home = () => {
-    const { data: categories } = useFetch("http://localhost:1337/api/categories?populate=*");
+    const { data: categories, isLoading, error } = useQuery("categories", async () => {
+        const data = await fetch("http://localhost:1337/api/categories?populate=*").then(r => r.json());
+        return data;
+    });
 
     return (
         <>

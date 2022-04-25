@@ -4,17 +4,14 @@ import BackButton from "./BackButton";
 
 import { Alert, CircularProgress, Container, ImageListItem, Link, Stack, Typography } from '@mui/material';
 import HairDresserCard from '../components/Card';
+import { useQuery } from "react-query";
 
 const Kappers = () => {
 
-    const { data: categories, error } = useFetch("http://localhost:1337/api/categories?populate=*");
-    //{categories.data[1].attributes.restaurants.data && categories.data[1].attributes.restaurants.data.map(hair =>
-    // <ImageListItem key={hair.attributes.id} component={Link} to={`/detail/${hair.attributes.id}`} data={hair.attributes}>
-    //     <RestaurantCard key={hair.attributes.id} hair={hair.attributes} />
-    // </ImageListItem>
-    //                 )}
-
-    // PROPERTIES
+    const { data: categories, isLoading, error } = useQuery("categories", async () => {
+        const data = await fetch("http://localhost:1337/api/categories?populate=*").then(r => r.json());
+        return data;
+    });
 
     return (
         <>

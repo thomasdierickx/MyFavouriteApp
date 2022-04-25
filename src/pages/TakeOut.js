@@ -4,9 +4,13 @@ import useFetch from "../hooks/useFetch";
 
 import { Alert, CircularProgress, Container, ImageListItem, Link, Stack, Typography } from '@mui/material';
 import HairDresserCard from '../components/Card';
+import { useQuery } from "react-query";
 
 const TakeOut = () => {
-    const { data: categories, error } = useFetch("http://localhost:1337/api/categories?populate=*");
+    const { data: categories, isLoading, error } = useQuery("categories", async () => {
+        const data = await fetch("http://localhost:1337/api/categories?populate=*").then(r => r.json());
+        return data;
+    });
     return (
         <>
             <BackButton />

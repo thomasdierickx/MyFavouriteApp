@@ -11,7 +11,7 @@ import { AiOutlineExport, AiOutlineInfoCircle, AiFillStar, AiOutlineStar } from 
 import { RiRestaurantLine } from 'react-icons/ri';
 import useFetch from "../hooks/useFetch";
 import { ImCross } from 'react-icons/im';
-import { QueryClient, useMutation } from "react-query";
+import { QueryClient, useMutation, useQuery } from "react-query";
 import { LoadingButton } from "@mui/lab";
 
 let today = new Date();
@@ -29,7 +29,10 @@ const Detail = () => {
         user: JSON.parse(localStorage.getItem('id')),
     }
 
-    const { data: detail } = useFetch(`http://localhost:1337/api/restaurants/${id}/?populate=*`);
+    const { data: detail, isLoading, error } = useQuery("detail", async () => {
+        const data = await fetch(`http://localhost:1337/api/restaurants/${id}?populate=*`).then(r => r.json());
+        return data;
+    });
 
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "all", defaultValues })
 
