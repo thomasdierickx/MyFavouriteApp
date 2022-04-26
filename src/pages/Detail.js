@@ -9,7 +9,6 @@ import { FiMoreVertical, FiPhoneCall } from 'react-icons/fi';
 import { useState } from "react";
 import { AiOutlineExport, AiOutlineInfoCircle, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { RiRestaurantLine } from 'react-icons/ri';
-import useFetch from "../hooks/useFetch";
 import { ImCross } from 'react-icons/im';
 import { QueryClient, useMutation, useQuery } from "react-query";
 import { LoadingButton } from "@mui/lab";
@@ -65,22 +64,23 @@ const Detail = () => {
         mutation.reset();
     }
 
+    console.log()
+
     return (
         <>
+            {isLoading && <CircularProgress />}
+            {error && <Alert severity="error">Something went wrong</Alert>}
             {
                 detail == null ?
                     <Stack style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }} >
                         <CircularProgress width="15rem" height="15rem" />
                     </Stack> :
                     <>
-                        <a id="writeReview" href=".." style={{ display: "none" }} >Review</a>
+                        <a id="writeReview" href=".."></a>
                         <article
                             style={{
                                 backgroundImage:
-                                    `url(${detail.data.attributes.images.data[0].attributes.formats.small.url === "" ?
-                                        "Image" :
-                                        detail.data.attributes.images.data[0].attributes.formats.small.url}
-                        )`,
+                                    `url(${detail.data.attributes.images.data[0].attributes.url})`,
                                 height: "30vh",
                                 backgroundSize: "cover"
                             }}>
@@ -220,7 +220,7 @@ const Detail = () => {
                                             Add Review
                                         </LoadingButton>
                                     </div>
-                                    <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+                                    <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} style={{ position: "absolute" }} >
                                         <Alert severity="success" sx={{ width: '100%' }}>Review added</Alert>
                                     </Snackbar>
                                 </Stack> : ""

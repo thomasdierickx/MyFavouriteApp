@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styles from '../components/app.module.css';
-import { Card, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
+import { Alert, Card, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import more from '../components/more.module.css';
-import useFetch from '../hooks/useFetch';
-import Geocode from "react-geocode";
 import { useQuery } from 'react-query';
+import { MdOutlinePersonPin } from 'react-icons/md';
+import { BsBookmarkStar, BsCamera, BsPatchCheck } from 'react-icons/bs';
+import { RiImage2Line } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 
 // const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -81,8 +83,6 @@ const Profile = (props) => {
     let string = ""
 
     navigator.geolocation.getCurrentPosition(function (position) {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
         localStorage.setItem('latitude', position.coords.latitude);
         localStorage.setItem('longitude', position.coords.longitude);
         string = `${position.coords.latitude}, ${position.coords.longitude}`;
@@ -91,6 +91,8 @@ const Profile = (props) => {
 
     return (
         <>
+            {isLoading && <CircularProgress />}
+            {error && <Alert severity="error">Something went wrong</Alert>}
             {isLogged ?
                 <>
                     <Container fixed>
@@ -101,6 +103,16 @@ const Profile = (props) => {
                                 </Stack> :
                                 <>
                                     <Container fixed>
+                                        <article style={{
+                                            backgroundImage: `url(https://source.unsplash.com/random/?person)`,
+                                            backgroundRepeat: "no-repeat",
+                                            backgroundSize: "cover",
+                                            width: "10rem",
+                                            height: "10rem",
+                                            borderRadius: "25rem",
+                                            margin: "0 auto",
+                                            marginTop: "2rem",
+                                        }} />
                                         <Typography variant='h4' component='h2' align='center' fontWeight='bold' padding={1}>
                                             {localStorage.getItem('username')}
                                         </Typography>
@@ -109,9 +121,42 @@ const Profile = (props) => {
                                                 {localStorage.getItem('latitude')}, {localStorage.getItem('longitude')}
                                             </Typography>
                                         </Container>
-
+                                        <Container style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} >
+                                            <MdOutlinePersonPin />
+                                            <Typography variant="p" fontSize=".7rem" color="grey" style={{ textAlign: "center", paddingLeft: ".5rem", paddingRight: "1rem" }}>
+                                                0
+                                            </Typography>
+                                            <BsBookmarkStar />
+                                            <Typography variant="p" fontSize=".7rem" color="grey" style={{ textAlign: "center", paddingLeft: ".5rem", paddingRight: "1rem" }}>
+                                                0
+                                            </Typography>
+                                            <RiImage2Line />
+                                            <Typography variant="p" fontSize=".7rem" color="grey" style={{ textAlign: "center", paddingLeft: ".5rem" }}>
+                                                0
+                                            </Typography>
+                                        </Container>
+                                        <Stack component="article" display="flex" justifyContent="space-evenly" alignItems="center" paddingTop={2} flexDirection="row">
+                                            <Link to={`/SearchCat`} style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", width: "30%", textDecoration: "none" }}>
+                                                <div style={{ backgroundColor: "lightgrey", borderRadius: "50%", width: "3rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                    <BsBookmarkStar style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
+                                                </div>
+                                                <p style={{ width: "60%", textAlign: "center", fontSize: ".7rem", color: "black" }} >Voeg een review toe</p>
+                                            </Link>
+                                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", width: "30%" }}>
+                                                <div style={{ backgroundColor: "lightgrey", borderRadius: "50%", width: "3rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                    <BsCamera style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
+                                                </div>
+                                                <p style={{ width: "60%", textAlign: "center", fontSize: ".7rem" }} >Voeg foto toe</p>
+                                            </div>
+                                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", width: "30%" }}>
+                                                <div style={{ backgroundColor: "lightgrey", borderRadius: "50%", width: "3rem", height: "3rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                    <BsPatchCheck style={{ color: "black", width: "1.5rem", height: "1.5rem" }} />
+                                                </div>
+                                                <p style={{ width: "60%", textAlign: "center", fontSize: ".7rem" }} >Check-In</p>
+                                            </div>
+                                        </Stack>
                                     </Container>
-                                    <Typography variant='h5' component="h3" fontWeight="bold">Mijn impact</Typography>
+                                    <Typography variant='h5' component="h3" fontWeight="bold" marginTop={3}>Mijn impact</Typography>
                                     <section style={{ display: "flex", overflowX: "scroll" }} >
                                         {
                                             reviews && reviews.data.map((review, i) =>
@@ -145,9 +190,6 @@ const Profile = (props) => {
                                                                         {review.attributes.date}
                                                                     </Typography>
                                                                 </article>
-                                                                {
-                                                                    console.log(review)
-                                                                }
                                                             </Card> :
                                                             ""
                                                     }

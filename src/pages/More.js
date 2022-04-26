@@ -39,7 +39,7 @@ const More = () => {
                     <p className={more.outlineItemText}>Check In</p>
                 </section>
             </article>
-            <article className={more.outline} style={{ paddingTop: "1rem", paddingTop: "1rem" }} >
+            <article className={more.outline} style={{ paddingTop: "1rem" }} >
                 <section className={more.outlineItem}>
                     <GoPulse style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Activiteit</p>

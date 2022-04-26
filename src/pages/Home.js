@@ -1,5 +1,5 @@
 import styles from '../components/app.module.css';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Alert, Box, CircularProgress, IconButton, Typography } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 // ICONS INLADEN
 import SearchIcon from '@mui/icons-material/Search';
@@ -7,7 +7,6 @@ import SearchIcon from '@mui/icons-material/Search';
 // ROUTER
 import React from 'react';
 import { Link } from "react-router-dom";
-import useFetch from '../hooks/useFetch';
 import { useQuery } from 'react-query';
 
 const Home = () => {
@@ -18,6 +17,8 @@ const Home = () => {
 
     return (
         <>
+            {isLoading && <CircularProgress />}
+            {error && <Alert severity="error">Something went wrong</Alert>}
             <Box>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
