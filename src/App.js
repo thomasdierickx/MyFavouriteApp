@@ -20,6 +20,7 @@ import TankStations from './pages/TankStations';
 import Detail from './pages/Detail';
 import Outgoing from './pages/Outgoing';
 import LoginRedirect from './pages/LoginRedirect';
+import SearchCat from './pages/SearchCat';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="reservation" element={<Reservation />} />
           <Route path="tankstations" element={<TankStations />} />
           <Route path="detail/:id" element={<Detail />} />
+          <Route path="SearchCat" element={<SearchCat />} />
         </Route>
       </Routes>
     </Box>

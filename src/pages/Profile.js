@@ -83,6 +83,8 @@ const Profile = (props) => {
     navigator.geolocation.getCurrentPosition(function (position) {
         console.log("Latitude is :", position.coords.latitude);
         console.log("Longitude is :", position.coords.longitude);
+        localStorage.setItem('latitude', position.coords.latitude);
+        localStorage.setItem('longitude', position.coords.longitude);
         string = `${position.coords.latitude}, ${position.coords.longitude}`;
         return string;
     });
@@ -101,23 +103,27 @@ const Profile = (props) => {
                                     <Container fixed>
                                         <Typography variant='h4' component='h2' align='center' fontWeight='bold' padding={1}>
                                             {localStorage.getItem('username')}
-                                        </Typography><br />
-                                        <Typography variant="p" fontSize=".6rem" color="grey" align='center'>
-                                            position
                                         </Typography>
+                                        <Container style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} >
+                                            <Typography variant="p" fontSize=".7rem" color="grey" style={{ textAlign: "center" }}>
+                                                {localStorage.getItem('latitude')}, {localStorage.getItem('longitude')}
+                                            </Typography>
+                                        </Container>
+
                                     </Container>
                                     <Typography variant='h5' component="h3" fontWeight="bold">Mijn impact</Typography>
                                     <section style={{ display: "flex", overflowX: "scroll" }} >
                                         {
                                             reviews && reviews.data.map((review, i) =>
-                                                <article key={i} style={{ margin: ".5rem" }}>
+                                                <article key={i} style={{ margin: ".2rem" }}>
                                                     {
                                                         review.attributes.user.data.id === JSON.parse(localStorage.getItem('id')) ?
                                                             <Card sx={{
                                                                 height: "10rem",
                                                                 width: "20rem",
                                                                 padding: "1rem",
-                                                                margin: "1rem",
+                                                                marginTop: "1rem",
+                                                                marginBottom: "1rem",
                                                                 display: "flex",
                                                                 justifyContent: "space-between",
                                                                 alignItems: "flex-start",

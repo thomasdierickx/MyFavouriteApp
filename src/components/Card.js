@@ -1,14 +1,14 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
-const HairDresserCard = ({ restaurant }) => {
+const HairDresserCard = ({ restaurant, images }) => {
 
     console.log(restaurant);
-    return (<Card sx={{ maxWidth: 345 }}>
+    return (<Card sx={{ maxWidth: 345, marginTop: "2rem" }}>
         <CardMedia
             component="img"
-            alt={""}
+            alt={"Test"}
             height="140"
-            image={""}
+            image={"https://source.unsplash.com/random/?food"}
         />
         <CardContent>
             <Typography gutterBottom variant="h4" component="h2">

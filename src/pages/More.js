@@ -8,6 +8,7 @@ import { MdOutlineDateRange } from 'react-icons/md';
 import { TiMessages } from 'react-icons/ti';
 import { FaYelp } from 'react-icons/fa';
 import { RiBuilding3Line } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 
 const More = () => {
     return (
@@ -16,10 +17,19 @@ const More = () => {
                 <h2 className={more.h2}>Meer</h2>
             </header>
             <article className={more.outline} style={{ color: "rgb(0, 195, 255)", marginTop: "-1rem", paddingBottom: "1rem" }} >
-                <section className={more.outlineItem}>
+                <Link to={`/SearchCat`} style={{
+                    textDecoration: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: "2rem",
+                    height: "1.5rem",
+                    paddingLeft: "1rem",
+                    color: "rgb(0, 195, 255)",
+                }} >
                     <BsStar style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Voeg een review toe</p>
-                </section>
+                </Link>
                 <section className={more.outlineItem}>
                     <FiCamera style={{ height: "1.4rem", width: "1.4rem" }} />
                     <p className={more.outlineItemText}>Voeg een foto of video toe</p>

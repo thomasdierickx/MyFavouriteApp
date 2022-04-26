@@ -32,10 +32,12 @@ const Home = () => {
                     </IconButton>
                 </header>
                 <article style={{ marginTop: "-2rem" }}>
-                    <IconButton sx={{ bgcolor: 'white', width: "90%", borderRadius: ".5rem", marginLeft: "1rem", boxShadow: ".1rem .1rem .5rem grey", paddingTop: "1rem", paddingBottom: "1rem" }} component="span">
-                        <SearchIcon style={{ color: "grey", height: "2rem", width: "2rem" }} />
-                        <Typography component='p' color="grey" paddingLeft={1}>Search for burgers, delivery, etc...</Typography>
-                    </IconButton>
+                    <Link to={`/searchCat`} style={{ textDecoration: "none" }} >
+                        <IconButton sx={{ bgcolor: 'white', width: "90%", borderRadius: ".5rem", marginLeft: "1rem", boxShadow: ".1rem .1rem .5rem grey", paddingTop: "1rem", paddingBottom: "1rem" }} component="span">
+                            <SearchIcon style={{ color: "grey", height: "2rem", width: "2rem" }} />
+                            <Typography component='p' color="grey" paddingLeft={1}>Search for burgers, delivery, etc...</Typography>
+                        </IconButton>
+                    </Link>
                 </article>
                 <article className={styles.searchCategories}>
                     {categories && categories.data.map((category, i) =>
