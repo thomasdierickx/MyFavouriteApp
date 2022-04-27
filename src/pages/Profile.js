@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styles from '../components/app.module.css';
 import { Alert, Card, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import more from '../components/more.module.css';
-import { useQuery } from 'react-query';
-import { MdOutlinePersonPin } from 'react-icons/md';
+import { QueryClient, useMutation, useQuery } from 'react-query';
+import { MdOutlinePersonPin, MdDeleteOutline, MdDelete } from 'react-icons/md';
 import { BsBookmarkStar, BsCamera, BsPatchCheck } from 'react-icons/bs';
 import { RiImage2Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
@@ -88,6 +88,30 @@ const Profile = (props) => {
         string = `${position.coords.latitude}, ${position.coords.longitude}`;
         return string;
     });
+
+    const deleteReview = async (review) => {
+        return await fetch(`http://localhost:1337/api/reviews/${review}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(r => r.json())
+    }
+
+    const mutation = useMutation(deleteReview, {
+        onSuccess: () => {
+            console.log("Review Deleted");
+            QueryClient.invalidateQueries("review");
+        }
+    })
+
+    const onSubmit = (data) => {
+        mutation.mutate(data)
+    }
+
+    const handleCloseSnackbar = () => {
+        mutation.reset();
+    }
 
     return (
         <>
@@ -182,13 +206,29 @@ const Profile = (props) => {
                                                                         {review.attributes.description}
                                                                     </Typography>
                                                                 </article>
-                                                                <article>
-                                                                    <Typography variant="p" fontSize=".8rem" color="grey">
-                                                                        {review.attributes.restaurant.data.attributes.name}
-                                                                    </Typography><br />
-                                                                    <Typography variant="p" fontSize=".6rem" color="grey">
-                                                                        {review.attributes.date}
-                                                                    </Typography>
+                                                                <article style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }} >
+                                                                    <section>
+                                                                        <Typography variant="p" fontSize=".8rem" color="grey">
+                                                                            {review.attributes.restaurant.data.attributes.name}
+                                                                        </Typography><br />
+                                                                        <Typography variant="p" fontSize=".6rem" color="grey">
+                                                                            {review.attributes.date}
+                                                                        </Typography>
+                                                                    </section>
+
+                                                                    <button style={{
+                                                                        width: "2.5rem",
+                                                                        height: "2.5rem",
+                                                                        backgroundColor: "lightgrey",
+                                                                        borderRadius: "25rem",
+                                                                        display: "flex",
+                                                                        justifyContent: "center",
+                                                                        alignItems: "center",
+                                                                        border: "none"
+                                                                    }} onClick={() => deleteReview(review.id)} >
+                                                                        <MdDelete style={{ width: "1.5rem", height: "1.5rem" }} />
+                                                                    </button>
+
                                                                 </article>
                                                             </Card> :
                                                             ""

@@ -1,39 +1,41 @@
 import styles from '../components/app.module.css';
-import { Alert, Box, CircularProgress, IconButton, Typography } from '@mui/material';
+import { Alert, Box, CircularProgress, IconButton, Stack, Typography, Link } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 // ICONS INLADEN
 import SearchIcon from '@mui/icons-material/Search';
 
 // ROUTER
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link as LinkR } from "react-router-dom";
 import { useQuery } from 'react-query';
 
 const Home = () => {
-    const { data: categories, isLoading, error } = useQuery("categories", async () => {
+    const { data: categories, isLoading: isLoadingCat, error: errorCat } = useQuery("categories", async () => {
         const data = await fetch("http://localhost:1337/api/categories?populate=*").then(r => r.json());
         return data;
     });
 
-    const { data: reviews, isLoadingR, errorR } = useQuery("reviews", async () => {
+    const { data: reviews, isLoading: isLoadingR, error: errorR } = useQuery("reviews", async () => {
         const data = await fetch("http://localhost:1337/api/reviews?populate=*").then(r => r.json());
         return data;
     });
 
-    const { data: restaurants, isLoadingRest, errorRest } = useQuery("restaurants", async () => {
+    const { data: restaurants, isLoading: isLoadingRest, error: errorRest } = useQuery("restaurants", async () => {
         const data = await fetch("http://localhost:1337/api/restaurants?populate=*").then(r => r.json());
         return data;
     });
 
-    const { data: users, isLoadingU, errorU } = useQuery("users", async () => {
+    const { data: users, isLoading: isLoadingU, error: errorU } = useQuery("users", async () => {
         const data = await fetch("http://localhost:1337/api/users?populate=*").then(r => r.json());
         return data;
     });
 
+    let totalReviews = 0;
+
     return (
         <>
-            {isLoading && <CircularProgress />}
-            {error && <Alert severity="error">Something went wrong</Alert>}
+            {isLoadingCat && <CircularProgress />}
+            {errorCat && <Alert severity="error">Something went wrong</Alert>}
             <Box>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -48,16 +50,16 @@ const Home = () => {
                     </IconButton>
                 </header>
                 <article style={{ marginTop: "-2rem" }}>
-                    <Link to={`/searchCat`} style={{ textDecoration: "none" }} >
+                    <LinkR to={`/searchCat`} style={{ textDecoration: "none" }} >
                         <IconButton sx={{ bgcolor: 'white', width: "90%", borderRadius: ".5rem", marginLeft: "1rem", boxShadow: ".1rem .1rem .5rem grey", paddingTop: "1rem", paddingBottom: "1rem" }} component="span">
                             <SearchIcon style={{ color: "grey", height: "2rem", width: "2rem" }} />
                             <Typography component='p' color="grey" paddingLeft={1}>Search for burgers, delivery, etc...</Typography>
                         </IconButton>
-                    </Link>
+                    </LinkR>
                 </article>
                 <article className={styles.searchCategories}>
                     {categories && categories.data.map((category, i) =>
-                        <Link to={`/${category.attributes.name}`} key={i} style={{ textDecoration: "none", color: "black" }}>
+                        <Stack component={Link} to={`/${category.attributes.name}`} key={i} style={{ textDecoration: "none", color: "black" }} categories={categories}>
                             <section className={styles.searchCategory}>
                                 <div style={{
                                     backgroundImage: `url(${category.attributes.icon.data.attributes.url})`,
@@ -68,7 +70,7 @@ const Home = () => {
                                 }}></div>
                                 <p className={styles.searchCategoryName}>{category.attributes.name}</p>
                             </section>
-                        </Link>
+                        </Stack>
                     )}
                 </article>
             </Box >
@@ -77,7 +79,12 @@ const Home = () => {
                 {isLoadingR && <CircularProgress />}
                 {errorR && <Alert severity="error">Something went wrong</Alert>}
                 <Typography align="center" color="white">Al</Typography>
-                <Typography variant='h3' component="h2" fontWeight="bold" color="white" >{reviews.data.length}</Typography>
+                {
+                    reviews === null ?
+                        <CircularProgress /> :
+                        <Typography variant='h3' component="h2" fontWeight="bold" color="white" >{totalReviews}</Typography>
+                }
+
                 <Typography align="center" color="white">reviews geschreven!</Typography>
             </Box>
 
@@ -85,7 +92,11 @@ const Home = () => {
                 {isLoadingRest && <CircularProgress />}
                 {errorRest && <Alert severity="error">Something went wrong</Alert>}
                 <Typography align="center">Op</Typography>
-                <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >{restaurants.data.length}</Typography>
+                {
+                    restaurants === null ?
+                        <CircularProgress /> :
+                        <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >Works</Typography>
+                }
                 <Typography align="center">verschillende restaurants geplaatst!</Typography>
             </Box>
 
@@ -93,7 +104,11 @@ const Home = () => {
                 {isLoadingU && <CircularProgress />}
                 {errorU && <Alert severity="error">Something went wrong</Alert>}
                 <Typography align="center">Door</Typography>
-                <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >{users.length}</Typography>
+                {
+                    users === null ?
+                        <CircularProgress /> :
+                        <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >Works</Typography>
+                }
                 <Typography align="center">verschillende gebruikers!</Typography>
             </Box>
             <Outlet />

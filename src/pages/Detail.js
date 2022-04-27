@@ -51,7 +51,7 @@ const Detail = () => {
     const mutation = useMutation(postReview, {
         onSuccess: () => {
             console.log("Review added");
-            QueryClient.invalidateQueries("reviews");
+            QueryClient.invalidateQueries("review");
             reset();
         }
     })
