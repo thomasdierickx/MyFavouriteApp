@@ -1,12 +1,10 @@
 import { Outlet } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
 import BackButton from "./BackButton";
-
 import { Alert, CircularProgress, Container, ImageListItem, Link, Stack, Typography } from '@mui/material';
 import HairDresserCard from '../components/Card';
 import { useQuery } from "react-query";
 
-const TankStations = () => {
+const Restaurants = () => {
 
     const { data: categories, isLoading, error } = useQuery("categories", async () => {
         const data = await fetch("http://localhost:1337/api/categories?populate=*").then(r => r.json());
@@ -16,6 +14,8 @@ const TankStations = () => {
     return (
         <>
             <BackButton />
+            {isLoading && <CircularProgress />}
+            {error && <Alert severity="error">Something went wrong</Alert>}
             {
                 categories === null ?
                     <Stack style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }} >
@@ -39,4 +39,4 @@ const TankStations = () => {
     );
 }
 
-export default TankStations;
+export default Restaurants;

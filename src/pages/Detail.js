@@ -13,11 +13,11 @@ import { ImCross } from 'react-icons/im';
 import { QueryClient, useMutation, useQuery } from "react-query";
 import { LoadingButton } from "@mui/lab";
 
-let today = new Date();
-let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
-
 const Detail = () => {
     const { id } = useParams();
+
+    let today = new Date();
+    let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
 
     const defaultValues = {
         title: "",
@@ -63,8 +63,6 @@ const Detail = () => {
     const handleCloseSnackbar = () => {
         mutation.reset();
     }
-
-    console.log()
 
     return (
         <>

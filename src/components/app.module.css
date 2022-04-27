@@ -1,6 +1,6 @@
 .header {
     background-image: url("https://res.cloudinary.com/dgebgtlsp/image/upload/v1650460020/food_kbcozz.jpg");
-    background-size: 30rem;
+    background-size: cover;
     background-repeat: no-repeat;
     width: 100vw;
     height: 12rem;

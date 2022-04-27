@@ -15,6 +15,21 @@ const Home = () => {
         return data;
     });
 
+    const { data: reviews, isLoadingR, errorR } = useQuery("reviews", async () => {
+        const data = await fetch("http://localhost:1337/api/reviews?populate=*").then(r => r.json());
+        return data;
+    });
+
+    const { data: restaurants, isLoadingRest, errorRest } = useQuery("restaurants", async () => {
+        const data = await fetch("http://localhost:1337/api/restaurants?populate=*").then(r => r.json());
+        return data;
+    });
+
+    const { data: users, isLoadingU, errorU } = useQuery("users", async () => {
+        const data = await fetch("http://localhost:1337/api/users?populate=*").then(r => r.json());
+        return data;
+    });
+
     return (
         <>
             {isLoading && <CircularProgress />}
@@ -57,6 +72,30 @@ const Home = () => {
                     )}
                 </article>
             </Box >
+
+            <Box sx={{ width: "90%", backgroundColor: "#c41200", borderRadius: "1rem", display: "flex", justifyContent: "space-evenly", alignItems: "center", padding: "0 1rem 0 1rem", margin: "0 auto", marginTop: "1rem", boxShadow: ".1rem .1rem .5rem grey" }} >
+                {isLoadingR && <CircularProgress />}
+                {errorR && <Alert severity="error">Something went wrong</Alert>}
+                <Typography align="center" color="white">Al</Typography>
+                <Typography variant='h3' component="h2" fontWeight="bold" color="white" >{reviews.data.length}</Typography>
+                <Typography align="center" color="white">reviews geschreven!</Typography>
+            </Box>
+
+            <Box sx={{ width: "90%", backgroundColor: "white", borderRadius: "1rem", display: "flex", justifyContent: "space-evenly", alignItems: "center", padding: "0 1rem 0 1rem", margin: "0 auto", marginTop: "1rem", boxShadow: ".1rem .1rem .5rem grey" }} >
+                {isLoadingRest && <CircularProgress />}
+                {errorRest && <Alert severity="error">Something went wrong</Alert>}
+                <Typography align="center">Op</Typography>
+                <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >{restaurants.data.length}</Typography>
+                <Typography align="center">verschillende restaurants geplaatst!</Typography>
+            </Box>
+
+            <Box sx={{ width: "90%", backgroundColor: "white", borderRadius: "1rem", display: "flex", justifyContent: "space-evenly", alignItems: "center", padding: "0 1rem 0 1rem", margin: "0 auto", marginTop: "1rem", boxShadow: ".1rem .1rem .5rem grey" }} >
+                {isLoadingU && <CircularProgress />}
+                {errorU && <Alert severity="error">Something went wrong</Alert>}
+                <Typography align="center">Door</Typography>
+                <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >{users.length}</Typography>
+                <Typography align="center">verschillende gebruikers!</Typography>
+            </Box>
             <Outlet />
         </>
     );
