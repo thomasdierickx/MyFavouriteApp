@@ -15,7 +15,7 @@ const Home = () => {
         return data;
     });
 
-    const { data: reviews, isLoading: isLoadingR, error: errorR } = useQuery("reviews", async () => {
+    const { data: reviews, isLoading: isLoadingRev, error: errorRev } = useQuery("reviews", async () => {
         const data = await fetch("http://localhost:1337/api/reviews?populate=*").then(r => r.json());
         return data;
     });
@@ -25,17 +25,21 @@ const Home = () => {
         return data;
     });
 
-    const { data: users, isLoading: isLoadingU, error: errorU } = useQuery("users", async () => {
+    const { data: users, isLoading: isLoadingUser, error: errorUser } = useQuery("users", async () => {
         const data = await fetch("http://localhost:1337/api/users?populate=*").then(r => r.json());
         return data;
     });
-
-    let totalReviews = 0;
 
     return (
         <>
             {isLoadingCat && <CircularProgress />}
             {errorCat && <Alert severity="error">Something went wrong</Alert>}
+            {isLoadingRest && <CircularProgress />}
+            {errorRest && <Alert severity="error">Something went wrong</Alert>}
+            {isLoadingRev && <CircularProgress />}
+            {errorRev && <Alert severity="error">Something went wrong</Alert>}
+            {isLoadingUser && <CircularProgress />}
+            {errorUser && <Alert severity="error">Something went wrong</Alert>}
             <Box>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -74,41 +78,19 @@ const Home = () => {
                     )}
                 </article>
             </Box >
-
             <Box sx={{ width: "90%", backgroundColor: "#c41200", borderRadius: "1rem", display: "flex", justifyContent: "space-evenly", alignItems: "center", padding: "0 1rem 0 1rem", margin: "0 auto", marginTop: "1rem", boxShadow: ".1rem .1rem .5rem grey" }} >
-                {isLoadingR && <CircularProgress />}
-                {errorR && <Alert severity="error">Something went wrong</Alert>}
                 <Typography align="center" color="white">Al</Typography>
-                {
-                    reviews === null ?
-                        <CircularProgress /> :
-                        <Typography variant='h3' component="h2" fontWeight="bold" color="white" >{totalReviews}</Typography>
-                }
-
+                <Typography variant='h3' component="h2" fontWeight="bold" color="white" >{reviews === undefined ? '0' : reviews.data.length}</Typography>
                 <Typography align="center" color="white">reviews geschreven!</Typography>
             </Box>
-
             <Box sx={{ width: "90%", backgroundColor: "white", borderRadius: "1rem", display: "flex", justifyContent: "space-evenly", alignItems: "center", padding: "0 1rem 0 1rem", margin: "0 auto", marginTop: "1rem", boxShadow: ".1rem .1rem .5rem grey" }} >
-                {isLoadingRest && <CircularProgress />}
-                {errorRest && <Alert severity="error">Something went wrong</Alert>}
                 <Typography align="center">Op</Typography>
-                {
-                    restaurants === null ?
-                        <CircularProgress /> :
-                        <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >Works</Typography>
-                }
+                <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >{restaurants === undefined ? '0' : restaurants.data.length}</Typography>
                 <Typography align="center">verschillende restaurants geplaatst!</Typography>
             </Box>
-
             <Box sx={{ width: "90%", backgroundColor: "white", borderRadius: "1rem", display: "flex", justifyContent: "space-evenly", alignItems: "center", padding: "0 1rem 0 1rem", margin: "0 auto", marginTop: "1rem", boxShadow: ".1rem .1rem .5rem grey" }} >
-                {isLoadingU && <CircularProgress />}
-                {errorU && <Alert severity="error">Something went wrong</Alert>}
                 <Typography align="center">Door</Typography>
-                {
-                    users === null ?
-                        <CircularProgress /> :
-                        <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >Works</Typography>
-                }
+                <Typography variant='h3' component="h2" fontWeight="bold" color="#c41200" >{users === undefined ? '0' : users.length}</Typography>
                 <Typography align="center">verschillende gebruikers!</Typography>
             </Box>
             <Outlet />
