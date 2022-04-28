@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../components/app.module.css';
-import { Alert, Card, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
+import { Alert, Card, Checkbox, CircularProgress, Container, Snackbar, Stack, Typography } from '@mui/material';
 import more from '../components/more.module.css';
 import { useQuery } from 'react-query';
 import { MdOutlinePersonPin, MdDelete } from 'react-icons/md';
@@ -60,21 +60,6 @@ const Profile = (props) => {
         text = `Log in met je e-mailadres en wachtwoord.`;
     }
 
-    // <div>
-    //     <Typography variant='p' component='p' textAlign="center">{text}</Typography>
-    //     {buttons}
-    // </div>
-
-    // {
-    //     reviews.data && reviews.data.map(i =>
-    //         <>
-    //             {
-    //                 reviews.data[i].attributes.user.data.id === JSON.parse(localStorage.getItem('id')) ?
-    //                     <p>Dit werkt</p> : <p>Dit niet</p>
-    //             }
-    //         </>
-    //     )
-    // }
     const { data: reviews, isLoading, error } = useQuery("reviews", async () => {
         const data = await fetch("http://localhost:1337/api/reviews?populate=*").then(r => r.json());
         return data;
@@ -102,6 +87,9 @@ const Profile = (props) => {
         <>
             {isLoading && <CircularProgress />}
             {error && <Alert severity="error">Something went wrong</Alert>}
+            <Snackbar autoHideDuration={3000} anchorOrigin={{ vertical: "top", horizontal: "right" }} style={{ position: "absolute", top: "1", right: "1", zIndex: "999" }} >
+                <Alert severity="error" sx={{ width: '100%' }}>Review added</Alert>
+            </Snackbar>
             {isLogged ?
                 <>
                     <Container fixed>
@@ -210,7 +198,7 @@ const Profile = (props) => {
                                                                         justifyContent: "center",
                                                                         alignItems: "center",
                                                                         border: "none"
-                                                                    }} onClick={() => deleteReview(review.id)} >
+                                                                    }} as="form" noValidate onClick={() => deleteReview(review.id)} >
                                                                         <MdDelete style={{ width: "1.5rem", height: "1.5rem" }} />
                                                                     </button>
 

@@ -38,7 +38,7 @@ const Detail = () => {
     const [click, setClick] = useState(true);
     const [clickReview, setClickReview] = useState(true);
 
-    const queryClient = useQueryClient()
+    const queryClient = useQueryClient();
 
     const postReview = async (review) => {
         return await fetch("http://localhost:1337/api/reviews", {
@@ -76,7 +76,7 @@ const Detail = () => {
                         <CircularProgress width="15rem" height="15rem" />
                     </Stack> :
                     <>
-                        <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "top", horizontal: "right" }} style={{ position: "absolute", top: "1", right: "1", zIndex: "999" }} >
+                        <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "top", horizontal: "right" }} style={{ position: "absolute", top: "6", right: "1", zIndex: "999" }} >
                             <Alert severity="success" sx={{ width: '100%' }}>Review added</Alert>
                         </Snackbar>
                         <a id="writeReview" href=".."></a>
