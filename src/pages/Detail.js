@@ -10,7 +10,7 @@ import { useState } from "react";
 import { AiOutlineExport, AiOutlineInfoCircle, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { RiRestaurantLine } from 'react-icons/ri';
 import { ImCross } from 'react-icons/im';
-import { QueryClient, useMutation, useQuery } from "react-query";
+import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
 import { LoadingButton } from "@mui/lab";
 
 const Detail = () => {
@@ -38,6 +38,8 @@ const Detail = () => {
     const [click, setClick] = useState(true);
     const [clickReview, setClickReview] = useState(true);
 
+    const queryClient = useQueryClient()
+
     const postReview = async (review) => {
         return await fetch("http://localhost:1337/api/reviews", {
             method: "POST",
@@ -51,7 +53,7 @@ const Detail = () => {
     const mutation = useMutation(postReview, {
         onSuccess: () => {
             console.log("Review added");
-            QueryClient.invalidateQueries("review");
+            queryClient.invalidateQueries("reviews");
             reset();
         }
     })
@@ -74,6 +76,9 @@ const Detail = () => {
                         <CircularProgress width="15rem" height="15rem" />
                     </Stack> :
                     <>
+                        <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "top", horizontal: "right" }} style={{ position: "absolute", top: "1", right: "1", zIndex: "999" }} >
+                            <Alert severity="success" sx={{ width: '100%' }}>Review added</Alert>
+                        </Snackbar>
                         <a id="writeReview" href=".."></a>
                         <article
                             style={{
@@ -154,7 +159,7 @@ const Detail = () => {
                         </Stack>
                         {
                             !clickReview ?
-                                <Stack as="form" noValidate onSubmit={handleSubmit(onSubmit)} position="absolute" top="0" left="0" width="100vw" height="100vh" backgroundColor="white">
+                                <Stack as="form" noValidate onSubmit={handleSubmit(onSubmit)} position="absolute" top="0" left="0" width="100vw" height="100vh" backgroundColor="white" style={{ zIndex: "1" }} >
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <Typography variant="h3" fontSize="1rem" fontWeight="bold" padding="1rem">{detail.data.attributes.name}</Typography>
                                         <ImCross style={{ margin: "1rem", width: "1rem", height: "1rem", color: "black" }} onClick={() => setClickReview(!clickReview)} />
@@ -218,9 +223,6 @@ const Detail = () => {
                                             Add Review
                                         </LoadingButton>
                                     </div>
-                                    <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} style={{ position: "absolute" }} >
-                                        <Alert severity="success" sx={{ width: '100%' }}>Review added</Alert>
-                                    </Snackbar>
                                 </Stack> : ""
                         }
                         <Stack component="article" display="flex" justifyContent="space-evenly" alignItems="center" paddingTop={2} flexDirection="row" style={{ paddingBottom: "2rem", borderBottom: "solid .7rem lightgrey" }}>
