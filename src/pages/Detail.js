@@ -25,7 +25,7 @@ const Detail = () => {
         stars_amount: 3,
         date: date.toString(),
         restaurant: id,
-        user: JSON.parse(localStorage.getItem('id')),
+        user: 3,
     }
 
     const { data: detail, isLoading, error } = useQuery("detail", async () => {
@@ -65,6 +65,8 @@ const Detail = () => {
     const handleCloseSnackbar = () => {
         mutation.reset();
     }
+
+    console.log(localStorage.getItem('id'));
 
     return (
         <>
@@ -212,6 +214,18 @@ const Detail = () => {
                                             label="date"
                                             type="date"
                                             value={date}
+                                            required
+                                            error={!!errors?.date}
+                                            helperText={errors?.date?.message}
+                                            {...register("date", { required: "Date are required" })}
+                                        />
+                                    </div>
+                                    <div style={{ padding: "1rem", display: "none" }}>
+                                        <TextField
+                                            id="user"
+                                            label="user"
+                                            type="user"
+                                            value={JSON.parse(localStorage.getItem('id')) === null ? 3 : JSON.parse(localStorage.getItem('id'))}
                                             required
                                             error={!!errors?.date}
                                             helperText={errors?.date?.message}
