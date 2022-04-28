@@ -19,7 +19,7 @@ const Restaurants = () => {
             {isLoading && <CircularProgress />}
             {error && <Alert severity="error">Something went wrong</Alert>}
             <Container>
-                <Typography variant="h2" component="h1">{categories.data[0].attributes.name}</Typography>
+                <Typography variant="h2" component="h1">Restaurants</Typography>
                 <Stack spacing={2}>
                     {categories && categories.data[0].attributes.restaurants.data.map((category, i) =>
                         <ImageListItem key={i} component={Link} to={`/detail/${category.id}`} restaurant={category} style={{ textDecoration: "none" }}>

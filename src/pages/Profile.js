@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styles from '../components/app.module.css';
 import { Alert, Card, Checkbox, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import more from '../components/more.module.css';
-import { QueryClient, useMutation, useQuery } from 'react-query';
-import { MdOutlinePersonPin, MdDeleteOutline, MdDelete } from 'react-icons/md';
+import { useQuery } from 'react-query';
+import { MdOutlinePersonPin, MdDelete } from 'react-icons/md';
 import { BsBookmarkStar, BsCamera, BsPatchCheck } from 'react-icons/bs';
 import { RiImage2Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
@@ -96,21 +96,6 @@ const Profile = (props) => {
                 "Content-Type": "application/json"
             }
         }).then(r => r.json())
-    }
-
-    const mutation = useMutation(deleteReview, {
-        onSuccess: () => {
-            console.log("Review Deleted");
-            QueryClient.invalidateQueries("review");
-        }
-    })
-
-    const onSubmit = (data) => {
-        mutation.mutate(data)
-    }
-
-    const handleCloseSnackbar = () => {
-        mutation.reset();
     }
 
     return (
