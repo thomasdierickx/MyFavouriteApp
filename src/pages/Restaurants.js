@@ -7,7 +7,7 @@ import HairDresserCard from '../components/Card';
 const Restaurants = () => {
 
     const { data: categories, isLoading, error } = useQuery("categories", async () => {
-        const data = await fetch("http://localhost:1337/api/categories?populate=*").then(r => r.json());
+        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/categories?populate=*`).then(r => r.json());
         return data;
     });
 

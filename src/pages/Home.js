@@ -11,22 +11,22 @@ import { useQuery } from 'react-query';
 
 const Home = () => {
     const { data: categories, isLoading: isLoadingCat, error: errorCat } = useQuery("categories", async () => {
-        const data = await fetch("http://localhost:1337/api/categories?populate=*").then(r => r.json());
+        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/categories?populate=*`).then(r => r.json());
         return data;
     });
 
     const { data: reviews, isLoading: isLoadingRev, error: errorRev } = useQuery("reviews", async () => {
-        const data = await fetch("http://localhost:1337/api/reviews?populate=*").then(r => r.json());
+        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/reviews?populate=*`).then(r => r.json());
         return data;
     });
 
     const { data: restaurants, isLoading: isLoadingRest, error: errorRest } = useQuery("restaurants", async () => {
-        const data = await fetch("http://localhost:1337/api/restaurants?populate=*").then(r => r.json());
+        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/restaurants?populate=*`).then(r => r.json());
         return data;
     });
 
     const { data: users, isLoading: isLoadingUser, error: errorUser } = useQuery("users", async () => {
-        const data = await fetch("http://localhost:1337/api/users?populate=*").then(r => r.json());
+        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/users?populate=*`).then(r => r.json());
         return data;
     });
 

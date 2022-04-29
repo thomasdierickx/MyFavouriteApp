@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 const HairDresserCard = ({ restaurant, counter }) => {
 
     const { data: reviews, isLoading, error } = useQuery("reviews", async () => {
-        const data = await fetch(`http://localhost:1337/api/reviews/?populate=*`).then(r => r.json());
+        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/reviews/?populate=*`).then(r => r.json());
         return data;
     });
 

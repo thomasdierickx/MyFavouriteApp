@@ -15,7 +15,7 @@ const providersNames = [
     'google',
 ];
 
-const LoginButton = (props) => <a href={`http://localhost:1337/api/connect/${props.providerName}`}>
+const LoginButton = (props) => <a href={`${process.env.REACT_PUBLIC_STRAPI_URL}/api/connect/${props.providerName}`}>
     <button className={styles.button}>Verdergaan met {props.providerName}</button>
 </a>;
 
@@ -61,7 +61,7 @@ const Profile = (props) => {
     }
 
     const { data: reviews, isLoading, error } = useQuery("reviews", async () => {
-        const data = await fetch("http://localhost:1337/api/reviews?populate=*").then(r => r.json());
+        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/reviews?populate=*`).then(r => r.json());
         return data;
     });
 
@@ -75,7 +75,7 @@ const Profile = (props) => {
     });
 
     const deleteReview = async (review) => {
-        return await fetch(`http://localhost:1337/api/reviews/${review}`, {
+        return await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/reviews/${review}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
