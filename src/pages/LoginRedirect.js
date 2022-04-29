@@ -12,7 +12,7 @@ const LoginRedirect = (props) => {
     useEffect(() => {
         // Successfully logged with the provider
         // Now logging with strapi by using the access_token (given by the provider) in props.location.search
-        fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/auth/${params.providerName}/callback${location.search}`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/${params.providerName}/callback${location.search}`)
             .then(res => {
                 if (res.status !== 200) {
                     throw new Error(`Couldn't login to Strapi. Status: ${res.status}`);

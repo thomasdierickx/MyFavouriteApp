@@ -8,7 +8,7 @@ import { useQuery } from "react-query";
 const Shopping = () => {
 
     const { data: categories, isLoading, error } = useQuery("categories", async () => {
-        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/categories?populate=*`).then(r => r.json());
+        const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/categories?populate=*`).then(r => r.json());
         return data;
     });
 

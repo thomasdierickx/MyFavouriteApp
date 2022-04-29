@@ -29,7 +29,7 @@ const Detail = () => {
     }
 
     const { data: detail, isLoading: loadingDetail, error: errorDetail } = useQuery("detail", async () => {
-        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/restaurants/${id}?populate=*`).then(r => r.json());
+        const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants/${id}?populate=*`).then(r => r.json());
         return data;
     });
 
@@ -41,7 +41,7 @@ const Detail = () => {
     const queryClient = useQueryClient();
 
     const postReview = async (review) => {
-        return await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/reviews`, {
+        return await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/reviews`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

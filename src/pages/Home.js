@@ -11,22 +11,28 @@ import { useQuery } from 'react-query';
 
 const Home = () => {
     const { data: categories, isLoading: isLoadingCat, error: errorCat } = useQuery("categories", async () => {
-        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/categories?populate=*`).then(r => r.json());
+        const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/categories?populate=*`).then(r => r.json());
         return data;
     });
 
+    if (!process.env.REACT_APP_BACKEND_URL) {
+        console.log("https://create-react-app.dev/docs/adding-custom-environment-variables/");
+    };
+
+    console.log(process.env.REACT_APP_BACKEND_URL);
+
     const { data: reviews, isLoading: isLoadingRev, error: errorRev } = useQuery("reviews", async () => {
-        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/reviews?populate=*`).then(r => r.json());
+        const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/reviews?populate=*`).then(r => r.json());
         return data;
     });
 
     const { data: restaurants, isLoading: isLoadingRest, error: errorRest } = useQuery("restaurants", async () => {
-        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/restaurants?populate=*`).then(r => r.json());
+        const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants?populate=*`).then(r => r.json());
         return data;
     });
 
     const { data: users, isLoading: isLoadingUser, error: errorUser } = useQuery("users", async () => {
-        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/users?populate=*`).then(r => r.json());
+        const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users?populate=*`).then(r => r.json());
         return data;
     });
 

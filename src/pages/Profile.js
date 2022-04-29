@@ -61,7 +61,7 @@ const Profile = (props) => {
     }
 
     const { data: reviews, isLoading, error } = useQuery("reviews", async () => {
-        const data = await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/reviews?populate=*`).then(r => r.json());
+        const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/reviews?populate=*`).then(r => r.json());
         return data;
     });
 
@@ -75,7 +75,7 @@ const Profile = (props) => {
     });
 
     const deleteReview = async (review) => {
-        return await fetch(`${process.env.REACT_PUBLIC_STRAPI_URL}/api/reviews/${review}`, {
+        return await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/reviews/${review}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
