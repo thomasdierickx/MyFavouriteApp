@@ -15,7 +15,7 @@ const providersNames = [
     'google',
 ];
 
-const LoginButton = (props) => <a href={`${process.env.REACT_PUBLIC_BACKEND_URL}/api/connect/${props.providerName}`}>
+const LoginButton = (props) => <a href={`${process.env.REACT_APP_BACKEND_URL}/api/connect/${props.providerName}`}>
     <button className={styles.button}>Verdergaan met {props.providerName}</button>
 </a>;
 
