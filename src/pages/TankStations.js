@@ -23,7 +23,7 @@ const TankStations = () => {
                 <Stack spacing={2}>
                     {categories && categories.data[5].attributes.restaurants.data.map((category, i) =>
                         <ImageListItem key={i} component={Link} to={`/detail/${category.id}`} restaurant={category} style={{ textDecoration: "none" }} >
-                            <HairDresserCard key={category.id} restaurant={category} />
+                            <HairDresserCard key={category.id} restaurant={category} counter={i + 1} />
                         </ImageListItem>
                     )}
 

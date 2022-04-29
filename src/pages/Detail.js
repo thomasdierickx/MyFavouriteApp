@@ -10,7 +10,7 @@ import { useState } from "react";
 import { AiOutlineExport, AiOutlineInfoCircle, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { RiRestaurantLine } from 'react-icons/ri';
 import { ImCross } from 'react-icons/im';
-import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { LoadingButton } from "@mui/lab";
 
 const Detail = () => {
@@ -28,7 +28,7 @@ const Detail = () => {
         user: 3,
     }
 
-    const { data: detail, isLoading, error } = useQuery("detail", async () => {
+    const { data: detail, isLoading: loadingDetail, error: errorDetail } = useQuery("detail", async () => {
         const data = await fetch(`http://localhost:1337/api/restaurants/${id}?populate=*`).then(r => r.json());
         return data;
     });
@@ -66,19 +66,16 @@ const Detail = () => {
         mutation.reset();
     }
 
-    console.log(localStorage.getItem('id'));
+    console.log(detail);
 
     return (
         <>
-            {isLoading && <CircularProgress />}
-            {error && <Alert severity="error">Something went wrong</Alert>}
+            {loadingDetail && <CircularProgress />}
+            {errorDetail && <Alert severity="error">Something went wrong</Alert>}
             {
-                detail == null ?
-                    <Stack style={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }} >
-                        <CircularProgress width="15rem" height="15rem" />
-                    </Stack> :
+                detail === undefined ? "" :
                     <>
-                        <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "top", horizontal: "right" }} style={{ position: "absolute", top: "6", right: "1", zIndex: "999" }} >
+                        <Snackbar open={mutation.isSuccess} onClose={handleCloseSnackbar} autoHideDuration={3000} anchorOrigin={{ vertical: "top", horizontal: "right" }} style={{ position: "absolute", top: "90vh", right: "1", zIndex: "999" }} >
                             <Alert severity="success" sx={{ width: '100%' }}>Review added</Alert>
                         </Snackbar>
                         <a id="writeReview" href=".."></a>
