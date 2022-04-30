@@ -30,7 +30,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route exact path="https://my-favourite-app.vercel.app/connect/:providerName/redirect" element={<LoginRedirect />} />
+          <Route exact path="/connect/:providerName/redirect" element={<LoginRedirect />} />
           <Route path="profile" element={<Profile />} />
           <Route path="likes" element={<Likes />} />
           <Route path="more" element={<More />} />

@@ -88,7 +88,7 @@ const Profile = (props) => {
             {isLoading && <CircularProgress />}
             {error && <Alert severity="error">Something went wrong</Alert>}
             <Snackbar autoHideDuration={3000} anchorOrigin={{ vertical: "top", horizontal: "right" }} style={{ position: "absolute", top: "1", right: "1", zIndex: "999" }} >
-                <Alert severity="error" sx={{ width: '100%' }}>Review added</Alert>
+                <Alert severity="error" sx={{ width: '100%' }}>Review Deleted</Alert>
             </Snackbar>
             {isLogged ?
                 <>
