@@ -170,6 +170,7 @@ const Profile = (props) => {
                                                                 justifyContent: "space-between",
                                                                 alignItems: "flex-start",
                                                                 flexDirection: "column",
+                                                                overflow: "scroll"
                                                             }}>
                                                                 <article>
                                                                     <Typography variant='h3' fontSize="1rem" fontWeight="bold">

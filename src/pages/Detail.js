@@ -19,19 +19,33 @@ const Detail = () => {
     let today = new Date();
     let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
 
+    const [isLogged, setIsLogged] = useState(!!localStorage.getItem('jwt'));
+
+    let user;
+
+    if (isLogged) {
+        user = localStorage.getItem('id');
+        console.log(user);
+    } else if (!isLogged) {
+        user = 3;
+        console.log(user);
+    }
+
     const defaultValues = {
         title: "",
         description: "",
         stars_amount: 3,
         date: date.toString(),
         restaurant: id,
-        user: 3,
+        user: user,
     }
 
     const { data: detail, isLoading: loadingDetail, error: errorDetail } = useQuery("detail", async () => {
         const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants/${id}?populate=*`).then(r => r.json());
         return data;
     });
+
+    console.log(localStorage.getItem('id'));
 
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "all", defaultValues })
 
@@ -222,11 +236,11 @@ const Detail = () => {
                                             id="user"
                                             label="user"
                                             type="user"
-                                            value={JSON.parse(localStorage.getItem('id')) === null ? 3 : JSON.parse(localStorage.getItem('id'))}
+                                            value={user}
                                             required
-                                            error={!!errors?.date}
-                                            helperText={errors?.date?.message}
-                                            {...register("date", { required: "Date are required" })}
+                                            error={!!errors?.user}
+                                            helperText={errors?.user?.message}
+                                            {...register("user", { required: "User are required" })}
                                         />
                                     </div>
                                     <div style={{ padding: "1rem" }}>
