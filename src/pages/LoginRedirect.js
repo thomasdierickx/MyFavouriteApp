@@ -30,7 +30,7 @@ const LoginRedirect = (props) => {
                 localStorage.setItem('email', res.user.email);
                 localStorage.setItem('data', JSON.stringify(res.user));
                 setText('You have been successfully logged in. You will be redirected in a few seconds...');
-                setTimeout(() => history('https://my-favourite-app.vercel.app/')); // Redirect to homepage after 3 sec
+                setTimeout(() => history('/'), 3000); // Redirect to homepage after 3 sec
             })
             .catch(err => {
                 console.log(err);
