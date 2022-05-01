@@ -18,7 +18,9 @@ const Detail = () => {
     const { id } = useParams();
 
     let today = new Date();
-    let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
+    let date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-0' + today.getDate();
+
+    console.log(JSON.stringify(date), date.toString());
 
     const [isLogged, setIsLogged] = useState(!!localStorage.getItem('jwt'));
 
@@ -43,6 +45,8 @@ const Detail = () => {
         const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants/${id}?populate=*`).then(r => r.json());
         return data;
     });
+
+    console.log(detail);
 
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "all", defaultValues })
 
@@ -219,11 +223,11 @@ const Detail = () => {
                                             id="date"
                                             label="date"
                                             type="date"
-                                            value={date}
+                                            value="2022-04-28"
                                             required
                                             error={!!errors?.date}
                                             helperText={errors?.date?.message}
-                                            {...register("date", { required: "Date are required" })}
+                                            {...register("date", { required: "Date is required" })}
                                         />
                                     </div>
                                     <div style={{ padding: "1rem", display: "none" }}>
