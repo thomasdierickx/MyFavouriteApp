@@ -19,8 +19,6 @@ const Home = () => {
         console.log("https://create-react-app.dev/docs/adding-custom-environment-variables/");
     };
 
-    console.log(process.env.REACT_APP_BACKEND_URL);
-
     const { data: reviews, isLoading: isLoadingRev, error: errorRev } = useQuery("reviews", async () => {
         const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/reviews?populate=*`).then(r => r.json());
         return data;

@@ -13,14 +13,10 @@ const SearchCat = () => {
         return data;
     });
 
-    console.log(categories);
-
     const { data: restaurants, isLoading2, error2 } = useQuery("restaurants", async () => {
         const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants?populate=*`).then(r => r.json());
         return data;
     });
-
-    console.log(restaurants);
 
     return (
         <>

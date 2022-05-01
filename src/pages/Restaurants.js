@@ -11,8 +11,6 @@ const Restaurants = () => {
         return data;
     });
 
-    console.log(categories);
-
     return (
         <>
             <BackButton />

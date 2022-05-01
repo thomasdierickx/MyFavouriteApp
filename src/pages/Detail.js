@@ -12,6 +12,7 @@ import { RiRestaurantLine } from 'react-icons/ri';
 import { ImCross } from 'react-icons/im';
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { LoadingButton } from "@mui/lab";
+import LikeButton from "../components/LikeButton";
 
 const Detail = () => {
     const { id } = useParams();
@@ -25,10 +26,8 @@ const Detail = () => {
 
     if (isLogged) {
         user = localStorage.getItem('id');
-        console.log(user);
     } else if (!isLogged) {
         user = 3;
-        console.log(user);
     }
 
     const defaultValues = {
@@ -44,8 +43,6 @@ const Detail = () => {
         const data = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/restaurants/${id}?populate=*`).then(r => r.json());
         return data;
     });
-
-    console.log(localStorage.getItem('id'));
 
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({ mode: "all", defaultValues })
 
@@ -80,8 +77,6 @@ const Detail = () => {
         mutation.reset();
     }
 
-    console.log(detail);
-
     return (
         <>
             {loadingDetail && <CircularProgress />}
@@ -103,7 +98,7 @@ const Detail = () => {
                             <nav style={{ paddingTop: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                 <BackButton margin={2} />
                                 <div style={{ width: "8rem", display: "flex", alignItems: "center", justifyContent: "space-evenly" }}>
-                                    <BsBookmark style={{ height: "1.5rem", width: "1.5rem", color: "white" }} />
+                                    <LikeButton restaurant_id={id} />
                                     <BsShareFill style={{ height: "1.5rem", width: "1.5rem", color: "white" }} />
                                     {
                                         click ?
