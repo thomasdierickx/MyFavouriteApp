@@ -1,7 +1,7 @@
 import BackButton from "./BackButton";
 import { Outlet } from "react-router-dom";
 
-import { Alert, CircularProgress, Container, ImageListItem, Link, Stack, Typography } from '@mui/material';
+import { Alert, CircularProgress, Container, IconButton, ImageListItem, Link, Stack, Typography } from '@mui/material';
 import HairDresserCard from '../components/Card';
 import { useQuery } from "react-query";
 
@@ -12,12 +12,15 @@ const Reservation = () => {
     });
     return (
         <>
-            <BackButton />
             {isLoading && <CircularProgress />}
             {error && <Alert severity="error">Something went wrong</Alert>}
+            <Container style={{ width: "100vw", height: "30vh", backgroundImage: `url(https://res.cloudinary.com/dgebgtlsp/image/upload/v1651406515/Screenshot_2022-05-01_at_13.54.34_tgizgl.png)`, backgroundSize: "cover", paddingTop: "4rem" }}>
+                <IconButton sx={{ bgcolor: 'white', width: "90%", borderRadius: ".5rem", marginLeft: "1rem", boxShadow: ".1rem .1rem .5rem grey", paddingTop: ".5rem", paddingBottom: ".5rem", display: "flex", justifyContent: "flex-start", alignItems: "center" }} component="span">
+                    <BackButton />
+                    <Typography component='h1' variant="h6" color="black" paddingLeft={1}>Reservation</Typography>
+                </IconButton>
+            </Container>
             <Container>
-                <Typography variant="h2" component="h1">Reservation</Typography>
-                {error && <Alert severity="error">Something went wrong</Alert>}
                 <Stack spacing={2}>
                     {categories && categories.data[6].attributes.restaurants.data.map((category, i) =>
                         <ImageListItem key={i} component={Link} to={`/detail/${category.id}`} restaurant={category} style={{ textDecoration: "none" }}>
